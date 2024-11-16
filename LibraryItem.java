@@ -29,6 +29,10 @@ public int getQuantity() {
     return quantity;
 }
 
+public void increaseQuantity(){
+    quantity++;
+}
+
   public void displayInfo() {  //iooverride ng mga children
     System.out.println("Item ID: " + getItemId());
     System.out.println("Title: " + getTitle());
