@@ -30,7 +30,12 @@ public int getQuantity() {
 }
 
 public void increaseQuantity(){
-    quantity++;
+  quantity++;
+}
+
+public void setQuantity(int quantity) { // pra sa Quantityyy 
+    this.quantity = quantity;
+
 }
 
   public void displayInfo() {  //iooverride ng mga children
