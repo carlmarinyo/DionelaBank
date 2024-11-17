@@ -9,8 +9,8 @@ Possible Implementation:
 name, pag meron kukunin yung userinput na quantity tapos i-add nalang sa quantity nung array. Pag wala, gagawa ng bagong index para dun
 
 
-1. Add books [DONE] MARIÑO
-2. View Item [] MARIÑO
+1. Add books [DONE] MARLO
+2. View Item [] MARLO
 3. Borrow Item [DONE] Zai
 4. Return Item [DONE] Kirk
 5. View Borrowed items [DONE] Zai
@@ -133,12 +133,14 @@ public class Main {
                     System.out.print("Enter Customer Name: ");
                     String customerN = scan.nextLine(); //kunin si Customer name
                     
-                    System.out.print("Enter the Name of the item you want to borrow: ");
-                    String borrow = scan.nextLine(); //kunin si item na gusto i borrow ni Customerrr
+                    System.out.print("Enter the ItemID of the item you want to borrow: ");
+                    int borrow = scan.nextInt(); //kunin si item na gusto i borrow ni Customerrr
                     Library1.Borrowitems(customerN, borrow); // tawag si Library class Borrowitem method pra mailagay si Customer name at hiniram
 
                     System.out.println("Do you want to borrow again? [1] - Yes / [2] - No");
                     loop = scan.nextInt();
+                    scan.nextLine();
+                    scan.nextLine();
 
                 } while(loop != 2);
 
