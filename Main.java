@@ -9,8 +9,8 @@ Possible Implementation:
 name, pag meron kukunin yung userinput na quantity tapos i-add nalang sa quantity nung array. Pag wala, gagawa ng bagong index para dun
 
 
-1. Add books [DONE] MARLO
-2. View Item [] MARLO
+1. Add books [DONE] MARIÑO
+2. View Item [] MARIÑO
 3. Borrow Item [DONE] Zai
 4. Return Item [DONE] Kirk
 5. View Borrowed items [DONE] Zai
