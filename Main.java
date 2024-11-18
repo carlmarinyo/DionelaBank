@@ -29,8 +29,7 @@ public class Main {
         int choice; //para sa switch case
 
         do {
-          
-            System.out.println("\n--------Welcome to Library malupit!--------\n");
+            System.out.println("Welcome to Library malupit!");
             System.out.println("MENU");
             System.out.println("1. Add Item");
             System.out.println("2. View Item");
@@ -47,8 +46,8 @@ public class Main {
             switch(choice) {
                 case 1:
                 do {
-                    Library1.clearScreen();
-                    System.out.print("\nWhat do you want to add?\n1. Book\n2. DVD\n3. Magazine\nYour choice: ");
+                    System.out.println("\n--------Library malupit-------\n");
+                    System.out.print("What do you want to add?\n1. Book\n2. DVD\n3. Magazine\nYour choice: ");
                     choice = scan.nextInt();
                     scan.nextLine();
 
@@ -69,8 +68,8 @@ public class Main {
             
                         LibraryItem book1 = new Book(Library.id , btitle, bcreator, bquantity, pages); //gagawa ng object na book
                         Library1.addItem(book1); //iaadd yung object sa array 
-                        System.out.println(btitle + " is successfully added to the library!");
-                      
+                        System.out.println("\n\n-------Updated List--------");
+                        Library1.displayInventory();
                         break;
         
         
@@ -88,8 +87,8 @@ public class Main {
             
                         LibraryItem dvd1 = new DVD(Library.id , dtitle, dcreator, dquantity, duration); //gagawa ng object na dvd
                         Library1.addItem(dvd1); // iaadd sa array yung ginawang dvd
-                        System.out.println(dtitle + " is successfully added to the library!");
-                        
+                        System.out.println("\n\n-------Updated List--------");
+                        Library1.displayInventory();
                         break;
         
                         case 3:
@@ -105,12 +104,12 @@ public class Main {
                         int mquantity = scan.nextInt();
                         LibraryItem mag1 = new Magazine(Library.id , mtitle, mcreator, mquantity, issueNumber); //gagawa ng object na magazine
                         Library1.addItem(mag1); //iaadd sa array yung ginawang magazine
-                        System.out.println(mtitle +" is successfully added to the library!");
-                    
+                        System.out.println("\n\n-------Updated List--------");
+                        Library1.displayInventory();
                         
                         break;
                     }
-                    System.out.print("Do you want to add again? [1] - Yes / [2] - No: ");
+                    System.out.println("Do you want to add again? [1] - Yes / [2] - No");
                     loop = scan.nextInt();
         
         
@@ -120,9 +119,7 @@ public class Main {
                 break;
 
                 case 2:
-                Library1.clearScreen();
-                System.out.println("All items available: ");
-                Library1.displayInventory();
+                //view item
 
                 
 
@@ -131,7 +128,6 @@ public class Main {
                 case 3:
                 //borrow item
                 do {
-                    Library1.clearScreen();
                     Library1.displayInventory(); //display muna mga items sa library
 
                     System.out.print("Enter Customer Name: ");
@@ -139,10 +135,17 @@ public class Main {
                     
                     System.out.print("Enter the ItemID of the item you want to borrow: ");
                     int borrow = scan.nextInt(); //kunin si item na gusto i borrow ni Customerrr
-                    Library1.Borrowitems(customerN, borrow); // tawag si Library class Borrowitem method pra mailagay si Customer name at hiniram
+                    scan.nextLine();
 
-                    System.out.print("Do you want to borrow again? [1] - Yes / [2] - No: ");
+                    System.out.print("Enter the quantity of the item you want to borrow: ");
+                    int quantity = scan.nextInt(); //kunin si quantity ng item na gusto iborrow ni Costomer
+                    scan.nextLine();
+
+                    Library1.Borrowitems(customerN, borrow, quantity); // tawag si Library class Borrowitem method pra mailagay si Customer name at hiniram
+
+                    System.out.println("Do you want to borrow again? [1] - Yes / [2] - No");
                     loop = scan.nextInt();
+                    scan.nextLine();
                     scan.nextLine();
 
                 } while(loop != 2);
@@ -151,14 +154,12 @@ public class Main {
                 break;
 
                 case 4:
-                Library1.clearScreen();
                 //return item
                 Library1.returnBook();
 
                 break;
 
                 case 5:
-                Library1.clearScreen();
                 //view borrowed items
                 Library1.DisplayBorrowedItems();
 
