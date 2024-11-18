@@ -137,7 +137,7 @@ public void returnBook(){
     
 
         public void DisplayBorrowedItems() {
-            System.out.println("Borrowed Items: ");
+            System.out.println("--------Borrowed Items--------\n");
             if (customerCount == 0) {
                 System.out.println("No items have been borrowed yet.");
             } else {
@@ -148,5 +148,16 @@ public void returnBook(){
             }
         }
 
+
+
+public void clearScreen() {
+    for (int i = 0; i < 50; i++) {
+        System.out.println();
+    }
 }
+
+
+        
+}
+
 
