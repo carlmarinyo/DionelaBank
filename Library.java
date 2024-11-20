@@ -32,6 +32,7 @@ public class Library {
         }
 
     public void displayInventory() {
+        System.out.println("--------Available Items--------");
         if (count == 0) { //checheck kung may laman ba o wala
             System.out.println("The library is empty.");
             return;
@@ -44,6 +45,7 @@ public class Library {
 
     //RETURNING METHODSSS
     public void returnBook(){
+        System.out.println("--------Return Items--------");
     Scanner input = new Scanner(System.in);
     boolean more = true; //habang true -- loop
 
@@ -156,7 +158,7 @@ public class Library {
     
 
         public void DisplayBorrowedItems() {
-            System.out.println("--------Borrowed Items--------\n");
+            System.out.println("--------List of Borrowed Items--------\n");
             if (customerCount == 0) {
                 System.out.println("No items have been borrowed yet.");
             } else {
