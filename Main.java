@@ -30,9 +30,11 @@ public class Main {
         int loop; //para sa for loop
         
         int cchoice;
-        String username[] = new String[5];
-        String password[] = new String[5]; //5 users lang 
-        String acctype[] = new String[5]; // either Admin or Student
+        String username[] = new String[200];
+        String password[] = new String[200]; //5 users lang 
+        String acctype[] = new String[200]; // either Admin or Student
+
+
         int increment = 0; //para sa indexing ng mga username,password,acctype
         do { 
             //first loop either login or registration
@@ -60,7 +62,6 @@ public class Main {
 
                     if (tempuser.equals(username[i]) && temppassword.equals(password[i])) { //checheck kung yung tinype mo na user/pass ay meron sa array
                         accfound=true; 
-                        System.out.println("Logged in...");
                        if (acctype[i] == "Admin") { //if admin ang nag login
                          
                         
@@ -203,9 +204,13 @@ public class Main {
                             break;
 
                             case 4: //View borrowed
-                            Library1.DisplayBorrowedItems(); //zai babaguhin dito is naka display lang yung binorrow nung user mismo
+                            //Library1.DisplayBorrowedItems(); //zai babaguhin dito is naka display lang yung binorrow nung user mismo
                                                               //di pwede yung kita pati binorrow nugn iba
                             break;
+
+                            case 5:
+                            System.out.println("Exiting...");
+
                             default:
                             System.out.println("Choose from 1-5 only.");
 
@@ -260,16 +265,33 @@ public class Main {
             System.out.print("Account Type? [1- Admin] [2- Student]: ");
             int tchoice = scan.nextInt();
             scan.nextLine();
+
+
             if (tchoice == 1) {
                 acctype[increment] = "Admin";
-                System.out.println("Account for admin "+username[increment]+" is created.");
-                increment++;
+                if (Library1.createAdmins(username[increment], password[increment])) {
+                Library1.DisplayingAdmins();
+                System.out.println("Account for admin "+username[increment]+" is added.");
+                increment++;                
+            
+            }
+
+                else {
+                    break;
+                }
+
             }
 
             else if (tchoice == 2) {
                 acctype[increment] = "Student";
-                System.out.println("Account for student "+username[increment]+" is created.");
+                if(Library1.createStudents(username[increment], password[increment])) {
+                Library1.DisplayingStudents();
+                System.out.println("Account for student "+username[increment]+" is added.");
                 increment++;
+                }
+                else {
+                    break;
+                }
             }
 
             else {
