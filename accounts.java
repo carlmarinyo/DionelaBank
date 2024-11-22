@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-//GOALS DAGDAGAN NYO NGA DI KO ALAM UNG IBA
+//GOALS
 //LOGIN ACC
 //REGISTER ACC
 //FILE TO LIST
@@ -84,7 +84,7 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
             //userCount = 0;
             BufferedReader reader = new BufferedReader(new FileReader("accJab.txt"));
             
-            System.out.println("I AM READING YOUR TEXT.");
+            System.out.println("I AM READING YOUR TEXT. PREPARING TO POPULATE");
 
             String line;
             while ((line = reader.readLine()) != null){
@@ -105,22 +105,22 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
             }
     }
 
-    public void listTOfileAcc(String username, String pass, String accType, String name){ //ONLY CALL WHEN NECESSARY, MIGHT REWRITE SOME SHTS
+    public void listTOfileAcc(){ //ONLY CALL WHEN NECESSARY, MIGHT REWRITE SOME SHTS
        
         try{
-            fileTOlistAcc(); //para d marewrite // nag lagay ng data sa arraylist if empty tong arraylist
+           // fileTOlistAcc(); //para d marewrite // nag lagay ng data sa arraylist if empty tong arraylist
             
 
             //accountsList.clear(); //for the sake of not duplicating like kunwari may laman na ung arrayList, have to empty it before calling
             //PERO TELL ME IF MAY NAISIP NA WAY TO MAKE IT LIKE, UNG ARRAYLIST IS LIKE THE SAME THE WHOLE TIME PARA NO NEED TO CALL IT
 
-            accounts newAcc = new accounts(username, pass, accType, name); //dito ung para sa parameter i add siya dun sa below
-            accountsList.add(newAcc); //ung object na newAcc is passed here para malagay sa arrayList
+            //accounts newAcc = new accounts(username, pass, accType, name); //dito ung para sa parameter i add siya dun sa below
+            //accountsList.add(newAcc); //ung object na newAcc is passed here para malagay sa arrayList
 
             BufferedWriter writer = new BufferedWriter(new FileWriter("accJab.txt"));
 
             for (accounts accounts : accountsList){ //ETO UNG LOOP
-                System.out.println("IM WRITING RN: ");
+                System.out.println("IM WRITING YOU RN TO THE FILE: ");
                 System.out.println("USER: " + accounts.username);
                 //UNG account[number/index] eto ung parts ng bawat line like account[0] is ung username pag account[1] un ung password
                 writer.write(accounts.username + ", " + accounts.password + ", " + accounts.accType + ", " + accounts.name + "\n");
@@ -134,7 +134,8 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
 
     public void addAccToList(accounts e){ //CALL THIS FOR ADDING THE ACCOUNT IN THE LIST
         accountsList.add(e);
-
+        //fileTOlistAcc(); //populate // if wala laman text file for populate gawa ng someth to detect
+        //pwedeng nandito ung listTOfileAcc para kada pag na-add user sa list matic na to
         for (accounts accounts : accountsList) {
             System.out.println("==========FOR TESTTTINGGGGG=========UP LOOB NG ADD ACC TO LIST METHOD");
             System.out.println("USERNAME: " + accounts.username);
