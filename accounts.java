@@ -6,36 +6,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 //GOALS
 //LOGIN ACC
 //REGISTER ACC
-//FILE TO LIST
-//LIST TO FILE
-
-
+//FILE TO LIST = POPULATE / LOAD
+//LIST TO FILE = WRITE / SAVE
 
 public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
     private String name;
     private String password;
     private String username;
     private String accType;
- //   private LibraryItem borrowedItem; wait d ko pa gets pano implement
-// private int ItemsBorrowed; wait d ko pa gets pano implement
+ // private LibraryItem borrowedItem; wait d ko pa gets pano implement
+//  private int ItemsBorrowed; wait d ko pa gets pano implement
     private ArrayList <accounts> accountsList = new ArrayList<>(); //THE ONLY USE FOR THIS IS FOR ITERATING/LOOPING THE TEXT FILE TO FIND THE CURRENT USER DATA AND SUCH
 
     Scanner scan = new Scanner(System.in);
 
-    //accountsList.
-
-    //utilization ng constructor overloading
-    //pra sa students
     public accounts(String username, String password, String accType, String name) {
         this.username = username;
         this.name = name;
         this.password = password;
         this.accType = accType;
-    //    this.borrowedItem = borrowedItem;
+    //  this.borrowedItem = borrowedItem;
         
     }
     public accounts(){
@@ -43,7 +36,49 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
         //or acc count static
     }
 
-    public void createAcc(){
+    public void fileTolistAcc(){ //FOR POPULATING THE ARRAYLIST AT THE START OR WHENEVER NECESSARY
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader("accJab.txt"));
+            System.out.println("I AM READING YOUR TEXT. PREPARING TO POPULATE");
+
+            String line;
+            while ((line = reader.readLine()) != null){ //READS EACH TO STORE IT IN VARIABLE LINE THEN DO THE BLOCK OF CODE THEN NEXT LINE TO STORE IN VARIABLE LINE
+                String[] parts = line.split(","); //SPLIT IS SEPARATE THE LINE INTO PIECES AND THESE PIECES ARE STORED IN PARTS ARRAY (FOR EACH INDEX IS EACH PIECE)
+                this.username = parts[0].trim();
+                this.password = parts[1].trim();
+                this.accType = parts[2].trim();
+                this.name = parts[3]; //NO TRIM SINCE WE WANT THE FULL NAME TO NOT GET TRIMMED // KASE TRIMMED IS REMOVING SPACES ORRR IDK? EXPERIMENT PA
+                
+                accounts newAcc = new accounts(parts[0].trim(), parts[1].trim(), parts[2].trim(),parts[3].trim());
+                accountsList.add(newAcc);
+            }
+            }
+            catch(IOException e){
+                System.err.println("An error occurred while reading the file: " + e.getMessage());
+            }
+    }//end bracket ng fileTOlistAcc
+
+    public void listTofileAcc(){ //THIS IS FOR WRITING THE ARRAYLIST TO TEXT FILE //ONLY CALL WHEN NECESSARY, MIGHT REWRITE SOME SHTS
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("accJab.txt"));
+
+            for (accounts accounts : accountsList){ //ETO UNG LOOP
+                System.out.println("IM WRITING YOU RN TO THE FILE: "); //THIS IS JUST A VISUAL NA GUMAGANA TO
+                System.out.println("USER: " + accounts.username); //THIS IS JUST A VISUAL NA GUMAGANA TO
+                //UNG account[number/index] eto ung parts ng bawat line like account[0] is ung username pag account[1] un ung password
+                writer.write(accounts.username + ", " + accounts.password + ", " + accounts.accType + ", " + accounts.name + "\n");
+                //THE FORMAT WOULD LOOK LIKE
+                //luthredean, luthpass, admin, Luther Dean
+             }
+             writer.close();
+        }
+        catch(IOException e){
+            System.err.println("An error occurred while writing the file: " + e.getMessage());
+        }
+    } //end bracket ng listTOfileAcc
+
+
+    public void createAcc(){ //JUST A MENU AND INPUT PURPOSE FOR THE OBJECT
         System.out.println("ENTER USERNAME: ");
         //a method to check if that user already exists
         this.username = scan.nextLine(); //PWEDENG setUsername(scan.nextLine());
@@ -51,20 +86,20 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
         this.name = scan.nextLine();
         System.out.println("ENTER PASSWORD: ");
         this.password = scan.nextLine();
-        System.out.println("WHAT ACCESS [2]student or [1]admin: ");
+        System.out.println("WHAT ACCESS [2]student or [1]admin: "); //put some sht kase pag 3 input student padin.
         this.accType = (scan.nextInt() == 1) ? "admin" : "student";
-    }
+    } //end bracket ng createAcc
 
-    public boolean loginAcc(String username, String password){ //or Object nasa parameter
-        outer:
+    public boolean loginAcc(String username, String password){ //
+        outer:                      //or Object nasa parameter?
         for (accounts accounts : accountsList){ //ETO UNG LOOP
            //UNG account[number/index] eto ung parts ng bawat line like account[0] is ung username pag account[1] un ung password
 
-            if (accounts.username.equals(username)){
+            if (accounts.username.equals(username)){ //checks if the current accounts.username is equal sa ininput ng user for login
                 System.out.println("USER FOUND");
-                if (accounts.password.equals(password)){
+                if (accounts.password.equals(password)){ //checks if password is correct
                     System.out.println("OMG YOU LOGGED IN.");
-                    if (accounts.accType.equals("admin")) return true; //RETURN
+                    if (accounts.accType.equals("admin")) return true; //RETURNS BOOLEAN FOR MENU PURPOSES
                     else if (accounts.accType.equals("student")) return false;
                     else System.out.println("THERE ARE SOME ERROR IN YOUR ACCOUNT");
                     break;
@@ -77,65 +112,14 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
             }
         }
         return false;
-    }
+    } //end bracket ng loginAcc
 
-    public void fileTOlistAcc(){
-        try{
-            //userCount = 0;
-            BufferedReader reader = new BufferedReader(new FileReader("accJab.txt"));
-            
-            System.out.println("I AM READING YOUR TEXT. PREPARING TO POPULATE");
-
-            String line;
-            while ((line = reader.readLine()) != null){
-                //userCount++; //for each acc
-                String[] parts = line.split(",");
-                this.username = parts[0].trim();
-                this.password = parts[1].trim();
-                this.accType = parts[2].trim();
-                this.name = parts[3]; //creates a new string containing the part0 and part1 (trimmed version) like Array [] arr = {1, 2}
-                
-                accounts newAcc = new accounts(parts[0].trim(), parts[1].trim(), parts[2].trim(),parts[3].trim());
-                accountsList.add(newAcc);
-            }
-            //pag i access acc need ng loop
-            }
-            catch(IOException e){
-                System.err.println("An error occurred while reading the file: " + e.getMessage());
-            }
-    }
-
-    public void listTOfileAcc(){ //ONLY CALL WHEN NECESSARY, MIGHT REWRITE SOME SHTS
-       
-        try{
-           // fileTOlistAcc(); //para d marewrite // nag lagay ng data sa arraylist if empty tong arraylist
-            
-
-            //accountsList.clear(); //for the sake of not duplicating like kunwari may laman na ung arrayList, have to empty it before calling
-            //PERO TELL ME IF MAY NAISIP NA WAY TO MAKE IT LIKE, UNG ARRAYLIST IS LIKE THE SAME THE WHOLE TIME PARA NO NEED TO CALL IT
-
-            //accounts newAcc = new accounts(username, pass, accType, name); //dito ung para sa parameter i add siya dun sa below
-            //accountsList.add(newAcc); //ung object na newAcc is passed here para malagay sa arrayList
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter("accJab.txt"));
-
-            for (accounts accounts : accountsList){ //ETO UNG LOOP
-                System.out.println("IM WRITING YOU RN TO THE FILE: ");
-                System.out.println("USER: " + accounts.username);
-                //UNG account[number/index] eto ung parts ng bawat line like account[0] is ung username pag account[1] un ung password
-                writer.write(accounts.username + ", " + accounts.password + ", " + accounts.accType + ", " + accounts.name + "\n");
-             }
-             writer.close();
-        }
-        catch(IOException e){
-            System.err.println("An error occurred while writing the file: " + e.getMessage());
-        }
-    }
+    
 
     public void addAccToList(accounts e){ //CALL THIS FOR ADDING THE ACCOUNT IN THE LIST
         accountsList.add(e);
-        //fileTOlistAcc(); //populate // if wala laman text file for populate gawa ng someth to detect
-        //pwedeng nandito ung listTOfileAcc para kada pag na-add user sa list matic na to
+        
+        //ETONG LOOP NA TO IS FOR TESTING LANG IF NASA ARRAYLIST NABA TALAGA UNG INADD NA OBJECT
         for (accounts accounts : accountsList) {
             System.out.println("==========FOR TESTTTINGGGGG=========UP LOOB NG ADD ACC TO LIST METHOD");
             System.out.println("USERNAME: " + accounts.username);
@@ -144,9 +128,9 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
             System.out.println("ACCESS TYPE: " + accounts.accType);
             System.out.println("==========FOR TESTTTINGGGGG=========DOWN LOOB NG ADD ACC TO LIST METHOD");
         }
-    }
+    } //END BRACKET NG addAccTOlist
 
-    public void viewAccArrayList(){
+    public void viewAccArrayList(){ //VIEWING ALL OBJECTS SA ARRAYLIST
         for (accounts accounts : accountsList) {
             System.out.println("==========FOR TESTTTINGGGGG=========UP LOOB NG VIEW ACC ARRAYLIST");
             System.out.println("USERNAME: " + accounts.username);
@@ -162,8 +146,6 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
         return accType;
     }
 
-    
-
     public String getpassword(){
         return password;
     }
@@ -176,22 +158,14 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
         return name;
     }
 
- 
-    // public void DisplayBorroweditems() { //para sa Libray class, kunin si Customer name at borrowed item
-    //     System.out.println("Customer Name: " + name);
-    //     borrowedItem.displayInfo();
-    //     System.out.println();
-    //     System.out.println("----Quantity of Borrowed items: " + getBorrowedItems() + "----For Customer: " + name);
-
-    
-    //     System.out.println();
-    // }
-
-    public void displayInfo() {
+    public void displayInfo() { //FOR SOLO DISPLAY
+        System.out.println("SOLO DISPLAY (current object only//the logged in)");
         System.out.println("Name: " + getName());
         System.out.println("Password: " + getpassword());
         System.out.println("Account Type: " + getAccounttype());
         System.out.println();
-    }
+    }//end bracket ng displayInfo
 
-}
+    //more methods here IDK PA
+    //
+}//END BRACKET NG CLASS
