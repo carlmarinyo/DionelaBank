@@ -9,33 +9,40 @@ Possible Implementation:
 name, pag meron kukunin yung userinput na quantity tapos i-add nalang sa quantity nung array. Pag wala, gagawa ng bagong index para dun
 
 
-1. Add books [DONE] MARLO
-2. View Item [] MARLO
-3. Borrow Item [DONE] Zai
-4. Return Item [DONE] Kirk
-5. View Borrowed items [DONE] Zai
-6. Exit
-
 */
 
+
+
+/*
+ 
+
+
+-KIRK, ZAI CINOMMENT OUT KO MUNA YUNG MGA GINAWA NINYO KASI SA INADJUST KO, HINDI NA GUMAGANA YUNG MGA FUNCTION NIYO
+
+- AADJUST NI LUTHER YUNG LAHAT NG MAY KINALAMAN SA ACCOUNT 
+
+
+
+
+
+ */
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-        Library Library1 = new Library(10);  //initialize kung gano karaming item meron sa library (iba pa to sa quantity ng bawat item)
+        Library Library1 = new Library();  //initialize kung gano karaming item meron sa library (iba pa to sa quantity ng bawat item)
         int choice=0; //para sa switch case
-        int choice1 = 0;// para sa switch case inside add item
         int choice2 = 0;//para sa looping ng student borrow item 
         int choice3 = 0; //para sa looping ng menu ng student
         Scanner scan = new Scanner(System.in);
         int loop; //para sa for loop
         
         int cchoice;
-        String username[] = new String[200];
-        String password[] = new String[200]; //5 users lang 
+        String username[] = new String[200];                                
+        String password[] = new String[200]; //5 users lang                           -- matatangal pag naayos
         String acctype[] = new String[200]; // either Admin or Student
 
 
-        int increment = 0; //para sa indexing ng mga username,password,acctype
+        int increment = 0; //para sa indexing ng mga username,password,acctype --matatangal din to pag inayos na
         do { 
             //first loop either login or registration
         System.out.println("\nWelcome to Dionela Library!");
@@ -62,90 +69,28 @@ public class Main {
 
                     if (tempuser.equals(username[i]) && temppassword.equals(password[i])) { //checheck kung yung tinype mo na user/pass ay meron sa array
                         accfound=true; 
-                       if (acctype[i] == "Admin") { //if admin ang nag login
+                       if (acctype[i] == "Admin") { //if admin ang nag login  
                          
                         
                         System.out.println("\n--------Welcome Admin "+ username[i]+"!--------");
                         do {
-                            System.out.println("1. Add Item\n2. Remove Item\n3. Exit.\nYour choice: ");
+                            System.out.print("1. Add Item\n2. Remove Item\n3. Exit.\nYour choice: ");
                             choice = scan.nextInt();
                             scan.nextLine();
 
-                            switch (choice) {
+                            switch (choice) { // para sa add item
                                 case 1:
-                                System.out.println("--------Add Items--------");
-                                    System.out.print("What do you want to add?\n1. Book\n2. DVD\n3. Magazine\nYour choice: ");
-                                    choice1 = scan.nextInt();
-                                    scan.nextLine();
-                                    switch (choice1) {
-                                        //pang add ng book
-                                        case 1: 
-                                        System.out.println("\n--------Add Book--------");
-                                        System.out.print("Enter title of the book: ");
-                                        String btitle = scan.nextLine();
-                                        System.out.print("Enter author of the book: ");
-                                        String bcreator = scan.nextLine();
-                                        System.out.print("Enter number of pages in the book: ");
-                                        int pages = scan.nextInt();
-                                        System.out.print("Enter quantity of books: ");
-                                        int bquantity = scan.nextInt();
-                                        scan.nextLine();
-                            
-                                        LibraryItem book1 = new Book(Library.id , btitle, bcreator, bquantity, pages); //gagawa ng object na book
-                                        Library1.addItem(book1); //iaadd yung object sa array 
-                                        System.out.println("\n\n-------Updated List--------");
-                                        Library1.displayInventory();
-                                        break;
-                        
-                        
-                                        case 2: 
-                                        //pag add ng dvd
-                                        System.out.println("\n--------Add DVD--------");
-                                        System.out.print("Enter the title of the DVD: ");
-                                        String dtitle = scan.nextLine();
-                                        System.out.print("Enter the director of the DVD: ");
-                                        String dcreator = scan.nextLine();
-                                        System.out.print("Enter the duration of the DVD (Hours): ");
-                                        int duration = scan.nextInt();
-                                        System.out.print("Enter the quantity of DVDs: ");
-                                        int dquantity = scan.nextInt();
-                                        scan.nextLine();
-                            
-                                        LibraryItem dvd1 = new DVD(Library.id , dtitle, dcreator, dquantity, duration); //gagawa ng object na dvd
-                                        Library1.addItem(dvd1); // iaadd sa array yung ginawang dvd
-                                        System.out.println("\n\n-------Updated List--------");
-                                        Library1.displayInventory();
-                                        break;
-                        
-                                        case 3:
-                                        //pag add ng magazine
-                                        System.out.println("\n--------Add Magazine--------");
-                                        System.out.print("Enter the title of the magazine: ");
-                                        String mtitle = scan.nextLine();
-                                        System.out.print("Enter the publisher of the magazine: ");
-                                        String mcreator = scan.nextLine();
-                                        System.out.print("Enter the issue number of the magazine: ");
-                                        int issueNumber = scan.nextInt();
-                                        System.out.print("Enter quantity of the magazines: ");
-                                        int mquantity = scan.nextInt();
-                                        scan.nextLine();
-                                        
-                                        LibraryItem mag1 = new Magazine(Library.id , mtitle, mcreator, mquantity, issueNumber); //gagawa ng object na magazine
-                                        Library1.addItem(mag1); //iaadd sa array yung ginawang magazine
-                                        System.out.println("\n\n-------Updated List--------");
-                                        Library1.displayInventory();
-                                        
-                                        break;
-                                    }
+                              Library1.addItem();;
 
                 
                 
                                 case 2: 
-                                //para sa borrow item kung sino man gagawa
+                               // para sa remove item
                                 break;
                               
 
                             }
+                         
                         }
                        while (choice != 3);
                         
@@ -157,47 +102,47 @@ public class Main {
                        
                         do {
                             System.out.println("\n--------Welcome Student "+ username[i]+"!--------");
-                        System.out.println("1. Borrow Item\n2. Return Item\n3. View Available Items\n4. View Borrowed Items\n5. Exit");
+                        System.out.print("1. Borrow Item\n2. Return Item\n3. View Available Items\n4. View Borrowed Items\n5. Exit");
                         choice2 = scan.nextInt();
                         scan.nextLine();
                         switch (choice2) {
-                            case 1: //borrow item
-                            do {
-                                System.out.println("--------Borrow Item--------");                                
+                            // case 1: //borrow item
+                            // do {
+                            //     System.out.println("--------Borrow Item--------");                                
                                                 
-                                                if (Library1.id - 1 <= 0) {
-                                                    System.out.println("Inventory is currently empty...");
-                                                    break;//checheck niya kung may laman naba, pag wala mag iistop di na tutuloy sa baba
-                                                     }
-                                                else { 
-                                                    Library1.displayInventory(); //display muna mga items sa library
-                                                }  
-                                                System.out.print("Enter Customer Name: ");
-                                                String customerN = scan.nextLine(); //kunin si Customer name
+                            //                     if (Library1.id - 1 <= 0) {
+                            //                         System.out.println("Inventory is currently empty...");
+                            //                         break;//checheck niya kung may laman naba, pag wala mag iistop di na tutuloy sa baba
+                            //                          }
+                            //                     else { 
+                            //                         Library1.displayInventory(); //display muna mga items sa library
+                            //                     }  
+                            //                     System.out.print("Enter Customer Name: ");
+                            //                     String customerN = scan.nextLine(); //kunin si Customer name
                                                 
-                                                System.out.print("Enter the ItemID of the item you want to borrow: ");
-                                                int borrow = scan.nextInt(); //kunin si item na gusto i borrow ni Customerrr
-                                                scan.nextLine();
+                            //                     System.out.print("Enter the ItemID of the item you want to borrow: ");
+                            //                     int borrow = scan.nextInt(); //kunin si item na gusto i borrow ni Customerrr
+                            //                     scan.nextLine();
                             
-                                                System.out.print("Enter the quantity of the item you want to borrow: ");
-                                                int quantity = scan.nextInt(); //kunin si quantity ng item na gusto iborrow ni Costomer
-                                                scan.nextLine();
+                            //                     System.out.print("Enter the quantity of the item you want to borrow: ");
+                            //                     int quantity = scan.nextInt(); //kunin si quantity ng item na gusto iborrow ni Costomer
+                            //                     scan.nextLine();
                             
-                                                Library1.Borrowitems(customerN, borrow, quantity); // tawag si Library class Borrowitem method pra mailagay si Customer name at hiniram
+                            //                     Library1.Borrowitems(customerN, borrow, quantity); // tawag si Library class Borrowitem method pra mailagay si Customer name at hiniram
                             
-                                                System.out.println("Do you want to borrow again? [1] - Yes / [2] - No");
-                                                loop = scan.nextInt();
-                                                scan.nextLine();
-                                                scan.nextLine();
+                            //                     System.out.println("Do you want to borrow again? [1] - Yes / [2] - No");
+                            //                     loop = scan.nextInt();
+                            //                     scan.nextLine();
+                            //                     scan.nextLine();
                             
-                                            } 
-                                            while(loop != 2);
-                            break;
+                            //                 } 
+                            //                 while(loop != 2);
+                            // break;
 
-                            case 2: //Return Item
-                            Library1.returnBook();   //kirk babaguhin to, pag nag login yung user rereturn niya lang yung mga binorrow niya 
-                                                      //bali di na mag tatanong ng userid
-                            break;
+                            // case 2: //Return Item
+                            // Library1.returnBook();   //kirk babaguhin to, pag nag login yung user rereturn niya lang yung mga binorrow niya 
+                            //                           //bali di na mag tatanong ng userid
+                            // break;
 
                             case 3: //View Available Items
                             Library1.displayInventory();
@@ -209,14 +154,15 @@ public class Main {
                             break;
 
                             case 5:
-                            System.out.println("Exiting...");
+                            System.out.println("Student is now exiting.....");
 
+                         
                             default:
                             System.out.println("Choose from 1-5 only.");
 
                         } // end ng student menu switch
                          }
-                         while (choice3 != 5);
+                         while (choice2 != 5);
                        } // end ng student else if
 
                     }
