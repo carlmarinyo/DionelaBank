@@ -18,7 +18,10 @@ public void displayInfo() {
     System.out.println("Pages: "+pages);
 }
 
-
+@Override
+public String toFileFormat() {
+    return super.toFileFormat() + "," + this.pages;
+}
 
 }
 

@@ -1,3 +1,7 @@
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,6 +34,43 @@ public class Library {
     private int generateItemId() { // pang generate ng item id
         return ++itemId;
     }
+
+
+
+
+    public void removeItem(){
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("--------Remove Item--------");
+        System.out.print("Enter the ID of the item to be removed: ");
+        int removeId = input.nextInt();
+        input.nextLine();
+
+        
+        boolean itemFound = false;
+    
+        // while(more){
+            for(int i = 0; i < availableItems.size(); i++){
+                if(availableItems.get(i).getItemId() == removeId){ //hahanapin kung match yung ID na ininput ng user sa arraylist
+                    itemFound = true;
+    
+                    availableItems.remove(i);
+                    System.out.println("Item " + removeId + " has been removed");
+                    break;
+                } 
+            }
+    
+            if(!itemFound){
+                System.out.println("Item " + removeId + " not found");
+            }
+    
+            System.out.println("\n\n-------Updated List--------");
+            displayInventory();
+            saveItemsToFile();
+    
+
+    }
+
 
     // add items
     public void addItem() { // mag aadd ng either book,dvd,magazine sa array
@@ -101,9 +142,30 @@ public class Library {
                 availableItems.add(newItem);
                 
             }          
+            saveItemsToFile();
         }
 
     }
+    
+  
+
+
+    public void saveItemsToFile() { //test
+        try (FileWriter myWriter = new FileWriter("libraryItems.txt")) {
+            for (LibraryItem item : availableItems) {
+                myWriter.write(item.toFileFormat() + "\n");
+            }
+            System.out.println("Successfully wrote items to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving items to the file.");
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
 
     public void displayInventory() { // display inventory
         System.out.println("--------Available Items--------");

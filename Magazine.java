@@ -12,6 +12,13 @@ public int getIssueNumber() {
         this.issueNumber = issueNumber;
     }
 
+
+    @Override
+    public String toFileFormat() {
+        return super.toFileFormat() + "," + this.issueNumber;
+    }
+
+
     @Override
     public void displayInfo() {
         System.out.println("Type: Magazine");

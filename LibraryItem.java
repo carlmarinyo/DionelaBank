@@ -38,6 +38,17 @@ public void setQuantity(int quantity) { // pra sa Quantityyy
 
 }
 
+
+public String toFileFormat() {
+  return this.getClass().getSimpleName() + "," + this.itemId + "," + this.title + "," + this.creator + "," + this.quantity;
+}
+
+
+
+
+
+
+
 public void displayInfo() {  //iooverride ng mga children
   System.out.println("Item ID: " + getItemId());
   System.out.println("Title: " + getTitle());

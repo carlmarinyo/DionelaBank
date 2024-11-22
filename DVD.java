@@ -10,6 +10,12 @@ public int getHours() {
     return hours;
 }
 
+@Override
+public String toFileFormat() {
+    return super.toFileFormat() + "," + this.hours;
+}
+
+
     @Override
     public void displayInfo() {
         System.out.println("Type: DVD");

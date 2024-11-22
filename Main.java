@@ -80,12 +80,13 @@ public class Main {
 
                             switch (choice) { // para sa add item
                                 case 1:
-                              Library1.addItem();;
-
+                              Library1.addItem();
+                              break;
                 
                 
                                 case 2: 
                                // para sa remove item
+                               Library1.removeItem();
                                 break;
                               
 
@@ -102,7 +103,7 @@ public class Main {
                        
                         do {
                             System.out.println("\n--------Welcome Student "+ username[i]+"!--------");
-                        System.out.print("1. Borrow Item\n2. Return Item\n3. View Available Items\n4. View Borrowed Items\n5. Exit");
+                        System.out.print("1. Borrow Item\n2. Return Item\n3. View Available Items\n4. View Borrowed Items\n5. Exit\nYour input: ");
                         choice2 = scan.nextInt();
                         scan.nextLine();
                         switch (choice2) {
@@ -155,7 +156,7 @@ public class Main {
 
                             case 5:
                             System.out.println("Student is now exiting.....");
-
+                            break;
                          
                             default:
                             System.out.println("Choose from 1-5 only.");
