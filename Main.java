@@ -51,19 +51,19 @@ public class Main {
         scan.nextLine();
         switch(cchoice) {
             case 1: //login
-        
+        //================================DITO BAKA POSSIBLE I-COUNT LAMAN NG ARRAYLIST===========
             if (increment == 0) { //checheck kung may laman naba na username/pass
                 System.out.println("There is no account yet.");
                 break;
             }
-           boolean accfound = false;
+           boolean accfound = false;  //======================EXISTS===================UP
             System.out.println("Login:");
             System.out.print("Username: ");
             String tempuser = scan.nextLine();
             System.out.print("Password: ");
-            String temppassword = scan.nextLine();
+            String temppassword = scan.nextLine(); //======================EXISTS===================DOWN
             
-        
+          //THIS EXISTS NA DIN
                 for (int i = 0; i < increment; i++) { //loloop depende kung ilan na yung account created
          
 
