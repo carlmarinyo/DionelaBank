@@ -8,23 +8,13 @@ public class Main{
         String name;
         int choice;
         Scanner scan = new Scanner(System.in);
-        FileHand file = new FileHand();
         accounts acc = new accounts();
-        Library libra = new Library(5);
-        // Person p1 = new Person();
-        // p1.login();
-
-
-        // System.out.print("ENTER USER ");
-        // user = scan.nextLine();
-        // System.out.print("ENTER PASS ");
-        // pass = scan.nextLine();
-        // file.storeFileAcc();
-        // System.out.println("MY ACCESS IS: " + file.accCheck(user, pass));
-
+        
+        acc.fileTOlistAcc(); //FOR POPULATING ARRAYLIST BEFORE STARTING PROGRAM
         System.out.println("MENU");
         System.out.println("1. LOGIN");
         System.out.println("2. CREATE ACCOUNT");
+        System.out.println("3. EXIT");
         System.out.println("ENTER YOUR CHOICE: ");
         choice = scan.nextInt();
         scan.nextLine(); //CIN.IGNORE
@@ -35,43 +25,23 @@ public class Main{
                 username = scan.nextLine();
                 System.out.print("ENTER PASS: ");
                 pass = scan.nextLine();
-                acc.fileTOlistAcc();
-                acc.loginAcc(username, pass);
+                acc.loginAcc(username, pass); //the string is passsed as argument to the parameter of method
 
-                //acc.
-                //libra.Borrowitems("luther", 123, 1);
-                // file.storeFileBook();
-                // file.showAllBooks();
                 break;
             case 2:
-                System.out.print("ENTER USERNAME: ");
-                username = scan.nextLine();
-                System.out.print("ENTER PASS: ");
-                pass = scan.nextLine();
-                System.out.print("Enter Account Type: [1]Admin [2]Student ");
-                accType = (scan.nextInt() == 1) ? "admin" : "student"; //gawan daw ng error handling kase baka ibang input 
-                scan.nextLine();
-                System.out.print("Enter Full NAME: ");
-                name = scan.nextLine();
-                acc.listTOfileAcc(username, pass, accType, name);
-
-
-                //acc.fileTOlistAcc(); //tanggalin nyo comment neto to see ano effect pag nadoble tawag ng fileTOlist
-                //acc.listTOfileAcc("carlmarinop", "carlpass", "student", "Carl Marino"); //may fileTolist din kase dito sa method nato
-                //acc.listTOfileAcc("luthredean", "luthpass", "admin", "Luther Dean");
+                acc.createAcc(); //menu for creating acc.. THIS IS ONLY INPUTS
+                acc.addAccToList(acc); //the object is now passed here (THE OBJECT NOW CONTAINS INFO THANKS TO createAcc METHOD)
+                acc.listTOfileAcc(); //this now updates the textfile using the current arrayList
             break;
 
-            case 3: //CREATION OF ACCOUNT
-            acc.createAcc();
-            acc.addAccToList(acc);
-            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-            acc.viewAccArrayList();
+            case 3: //SOMEWAY TO EXIT
+         
+                break;
             default:
                 break;
-        }
+        } //END BRACKET OF SWITCH
         
-       
+       //THIS IS OUTSIDE OF SWITCH CASE JUST TO SEE THE INFOS OF THE ARRAYLIST
         System.out.println("======================MAIN=======");
         acc.viewAccArrayList();
         System.out.println("=============================MAIN==========");
