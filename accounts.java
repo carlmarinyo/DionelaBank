@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-//GOALS
+//GOALS DAGDAGAN NYO NGA DI KO ALAM UNG IBA
 //LOGIN ACC
 //REGISTER ACC
 //FILE TO LIST
@@ -30,7 +30,7 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
 
     //utilization ng constructor overloading
     //pra sa students
-    public accounts(String username, String password, String name, String accType) {
+    public accounts(String username, String password, String accType, String name) {
         this.username = username;
         this.name = name;
         this.password = password;
@@ -95,7 +95,7 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
                 this.accType = parts[2].trim();
                 this.name = parts[3]; //creates a new string containing the part0 and part1 (trimmed version) like Array [] arr = {1, 2}
                 
-                accounts newAcc = new accounts(parts[0].trim(), parts[1].trim(), parts[2].trim(),parts[3]);
+                accounts newAcc = new accounts(parts[0].trim(), parts[1].trim(), parts[2].trim(),parts[3].trim());
                 accountsList.add(newAcc);
             }
             //pag i access acc need ng loop
@@ -108,15 +108,21 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
     public void listTOfileAcc(String username, String pass, String accType, String name){ //ONLY CALL WHEN NECESSARY, MIGHT REWRITE SOME SHTS
        
         try{
-            BufferedWriter writer = new BufferedWriter(new FileWriter("accJab.txt"));
             fileTOlistAcc(); //para d marewrite // nag lagay ng data sa arraylist if empty tong arraylist
-            //need dapat ung data sa parameter is malagay din sa array list 
-            accounts newAcc = new accounts(username, pass, accType, name);
-            accountsList.add(newAcc);
+            
+
+            //accountsList.clear(); //for the sake of not duplicating like kunwari may laman na ung arrayList, have to empty it before calling
+            //PERO TELL ME IF MAY NAISIP NA WAY TO MAKE IT LIKE, UNG ARRAYLIST IS LIKE THE SAME THE WHOLE TIME PARA NO NEED TO CALL IT
+
+            accounts newAcc = new accounts(username, pass, accType, name); //dito ung para sa parameter i add siya dun sa below
+            accountsList.add(newAcc); //ung object na newAcc is passed here para malagay sa arrayList
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter("accJab.txt"));
 
             for (accounts accounts : accountsList){ //ETO UNG LOOP
+                System.out.println("IM WRITING RN: ");
+                System.out.println("USER: " + accounts.username);
                 //UNG account[number/index] eto ung parts ng bawat line like account[0] is ung username pag account[1] un ung password
-               // writer.write(accounts.username + ", " + accounts.password + ", " + accounts.accType + ", " + accounts.name + "\n");
                 writer.write(accounts.username + ", " + accounts.password + ", " + accounts.accType + ", " + accounts.name + "\n");
              }
              writer.close();
@@ -124,7 +130,6 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
         catch(IOException e){
             System.err.println("An error occurred while writing the file: " + e.getMessage());
         }
-
     }
 
     public void addAccToList(accounts e){ //CALL THIS FOR ADDING THE ACCOUNT IN THE LIST
