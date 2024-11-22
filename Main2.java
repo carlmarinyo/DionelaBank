@@ -31,7 +31,7 @@ public class Main{
             case 2:
                 acc.createAcc(); //menu for creating acc.. THIS IS ONLY INPUTS
                 acc.addAccToList(acc); //the object is now passed here (THE OBJECT NOW CONTAINS INFO THANKS TO createAcc METHOD)
-                acc.listTOfileAcc(); //this now updates the textfile using the current arrayList
+                acc.listTofileAcc(); //this now updates the textfile using the current arrayList
             break;
 
             case 3: //SOMEWAY TO EXIT
