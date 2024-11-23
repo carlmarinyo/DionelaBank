@@ -18,7 +18,7 @@ public class Library {
     Scanner input = new Scanner(System.in);
     accounts account;
     BorrowedItems borrowItemInfo;
-    private ArrayList<BorrowedItems> borrowInfoListCopy;
+    //private ArrayList<BorrowedItems> borrowInfoListCopy;
     private ArrayList<accounts> accListCopy; //DECLARE AN ARRAYLIST WITHOUT POINTIN IT TO SOMETH YET
     private ArrayList<Library> availableItems = new ArrayList<>(); //arrayList para sa items
 
@@ -262,44 +262,56 @@ public class Library {
       }
 
 
-// public void borrowItem(){
-//     Scanner scan = new Scanner(System.in);
-//     do {
-//         System.out.println("--------Borrow Item--------");                                
+public void borrowItem(BorrowedItems userBi){
+    int loop;
+    Scanner scan = new Scanner(System.in);
+    do {
+        System.out.println("--------Borrow Item--------");                                
+        System.out.println("NUMBER OF TITLE: " + availableItems.size());
+        if (availableItems.size() <= 0) {
+           System.out.println("Inventory is currently empty...");
+         break;//checheck niya kung may laman naba, pag wala mag iistop di na tutuloy sa baba
+                             }
+        else { 
+             System.out.println("LIST OF BOOKS: ");
+            for (Library items : availableItems) {
+                 items.displayInfo(); //display muna mga items sa library
+             }                 
+         }  
+           System.out.print("Enter Customer Name: "); //HAVE TO CHECK FIRST IF CUSTOMER EXISTS WALA PA
+           String customerN = scan.nextLine(); //kunin si Customer name
                         
-//         if (availableItems.size() <= 0) {
-//            System.out.println("Inventory is currently empty...");
-//          break;//checheck niya kung may laman naba, pag wala mag iistop di na tutuloy sa baba
-//                              }
-//         else { 
-//              System.out.println("LIST OF BOOKS: ");
-//             for (Library items : availableItems) {
-//                  items.displayInfo(); //display muna mga items sa library
-//              }
-                            
-//          }  
-//            System.out.print("Enter Customer Name: ");
-//            String customerN = scan.nextLine(); //kunin si Customer name
-                        
-//            System.out.print("Enter the ItemID of the item you want to borrow: ");
-//            int itemId = scan.nextInt(); //kunin si item na gusto i borrow ni Customerrr
-//            scan.nextLine();
+           System.out.print("Enter the ItemID of the item you want to borrow: ");
+           int itemId = scan.nextInt(); //kunin si item na gusto i borrow ni Customerrr
+           scan.nextLine();
     
-//          System.out.print("Enter the quantity of the item you want to borrow: ");
-//            int quantity = scan.nextInt(); //kunin si quantity ng item na gusto iborrow ni Costomer
-//           scan.nextLine();
+         System.out.print("Enter the quantity of the item you want to borrow: ");
+           int quantity = scan.nextInt(); //kunin si quantity ng item na gusto iborrow ni Costomer
+          scan.nextLine();
     
-//                         // SAVING THE DATA TO THE ARRAYLIST OF BORROWED ITEMS
-//           borrowItemInfo.Borrowitems(customerN, itemId, quantity); // tawag si Library class Borrowitem method pra mailagay si Customer name at hiniram
-         
-//          System.out.println("Do you want to borrow again? [1] - Yes / [2] - No");
-//           loop = scan.nextInt();
-//           scan.nextLine();
-//         scan.nextLine();
+                        // SAVING THE DATA TO THE ARRAYLIST OF BORROWED ITEMS
+          borrowItemInfo.Borrowitems(customerN, itemId, quantity); // tawag si Library class Borrowitem method pra mailagay si Customer name at hiniram
+          
+          for (Library items : availableItems) {
+            if (items.getItemId() == itemId){ //PUT A CONDITION NA KAPAG MERON PANG QUANTITY OR WALA
+                System.out.println("CURRENT ITEM QUANTITY: " + items.getQuantity());
+                items.quantity = (items.quantity - 1);
+                System.out.println("ITEM MINUS QUANTITY SUCCESS LOOK: " + items.getQuantity());
+                //after minus in quantity we want to save changed to this. so how
+                saveItemsToFile();
+                System.out.println("=====SUCCESS UPDATED QUANTITY ITEM======");
+                break; 
+            }
+        }  
+
+          System.out.println("Do you want to borrow again? [1] - Yes / [2] - No");
+          loop = scan.nextInt();
+          scan.nextLine();
+          scan.nextLine();
     
-//                 } 
-//        while(loop != 2);
-// }
+                } 
+       while(loop != 2);
+}
 
 
 
