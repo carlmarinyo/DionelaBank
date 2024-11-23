@@ -262,7 +262,7 @@ public class Library {
       }
 
 
-public void borrowItem(BorrowedItems userBi){
+public void borrowItem(){
     int loop;
     Scanner scan = new Scanner(System.in);
     do {
