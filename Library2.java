@@ -196,9 +196,9 @@ public class Library {
                 Library newItem = new Library(this.itemId, parts[1].trim(), parts[2].trim(),this.quantity);
                 availableItems.add(newItem);
             }
-            System.out.println("Successfully wrote items to the file.");
+            System.out.println("Successfully READ THE ITEMS.");
         } catch (IOException e) {
-            System.out.println("An error occurred while saving items to the file.");
+            System.out.println("An error occurred while reading items to the file." + e.getMessage());
            // e.printStackTrace();
         }
     }
@@ -208,11 +208,12 @@ public class Library {
 
 
 
-    public void displayInventory() { // display inventory
+    public void displayInventory() { // display inventory //pero kung didisplay other stuff idk pa baka need ng override since iba iba sila info
         System.out.println("--------Available Items--------");
+        System.out.println("Num of TITLES WE HAVE: " + availableItems.size());
         if (availableItems.size() != 0) { // checks if the availableitems is not empty {}
             for (Library item : availableItems) {
-                item.getTitle();
+                System.out.print(item.getTitle());
                 System.out.println();
             }
         }
@@ -228,7 +229,7 @@ public class Library {
       }
       
       public String getTitle() {
-          return title;
+          return this.title;
       }
       
       public String getCreator() {
@@ -261,44 +262,44 @@ public class Library {
       }
 
 
-public void borrowItem(){
-    Scanner scan = new Scanner(System.in);
-    do {
-        System.out.println("--------Borrow Item--------");                                
+// public void borrowItem(){
+//     Scanner scan = new Scanner(System.in);
+//     do {
+//         System.out.println("--------Borrow Item--------");                                
                         
-        if (availableItems.size() <= 0) {
-           System.out.println("Inventory is currently empty...");
-         break;//checheck niya kung may laman naba, pag wala mag iistop di na tutuloy sa baba
-                             }
-        else { 
-             System.out.println("LIST OF BOOKS: ");
-            for (Library items : availableItems) {
-                 items.displayInfo(); //display muna mga items sa library
-             }
+//         if (availableItems.size() <= 0) {
+//            System.out.println("Inventory is currently empty...");
+//          break;//checheck niya kung may laman naba, pag wala mag iistop di na tutuloy sa baba
+//                              }
+//         else { 
+//              System.out.println("LIST OF BOOKS: ");
+//             for (Library items : availableItems) {
+//                  items.displayInfo(); //display muna mga items sa library
+//              }
                             
-         }  
-           System.out.print("Enter Customer Name: ");
-           String customerN = scan.nextLine(); //kunin si Customer name
+//          }  
+//            System.out.print("Enter Customer Name: ");
+//            String customerN = scan.nextLine(); //kunin si Customer name
                         
-           System.out.print("Enter the ItemID of the item you want to borrow: ");
-           int itemId = scan.nextInt(); //kunin si item na gusto i borrow ni Customerrr
-           scan.nextLine();
+//            System.out.print("Enter the ItemID of the item you want to borrow: ");
+//            int itemId = scan.nextInt(); //kunin si item na gusto i borrow ni Customerrr
+//            scan.nextLine();
     
-         System.out.print("Enter the quantity of the item you want to borrow: ");
-           int quantity = scan.nextInt(); //kunin si quantity ng item na gusto iborrow ni Costomer
-          scan.nextLine();
+//          System.out.print("Enter the quantity of the item you want to borrow: ");
+//            int quantity = scan.nextInt(); //kunin si quantity ng item na gusto iborrow ni Costomer
+//           scan.nextLine();
     
-                        // SAVING THE DATA TO THE ARRAYLIST OF BORROWED ITEMS
-          borrowItemInfo.Borrowitems(customerN, itemId, quantity); // tawag si Library class Borrowitem method pra mailagay si Customer name at hiniram
+//                         // SAVING THE DATA TO THE ARRAYLIST OF BORROWED ITEMS
+//           borrowItemInfo.Borrowitems(customerN, itemId, quantity); // tawag si Library class Borrowitem method pra mailagay si Customer name at hiniram
          
-         System.out.println("Do you want to borrow again? [1] - Yes / [2] - No");
-          loop = scan.nextInt();
-          scan.nextLine();
-        scan.nextLine();
+//          System.out.println("Do you want to borrow again? [1] - Yes / [2] - No");
+//           loop = scan.nextInt();
+//           scan.nextLine();
+//         scan.nextLine();
     
-                } 
-       while(loop != 2);
-}
+//                 } 
+//        while(loop != 2);
+// }
 
 
 
