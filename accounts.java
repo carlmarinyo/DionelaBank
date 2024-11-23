@@ -87,6 +87,7 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
                 writer.write(accounts.username + ", " + accounts.password + ", " + accounts.accType + ", " + accounts.name + "\n");
                 //THE FORMAT WOULD LOOK LIKE
                 //luthredean, luthpass, admin, Luther Dean
+                System.out.println("ACCOUNT SUCCESS CREATED WALA PA LOOP, AND PACHECK IF NASA FILE UNG ACCOUNT");
              }
              writer.close();
         }
