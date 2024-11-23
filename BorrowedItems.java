@@ -14,7 +14,7 @@ class BorrowedItems{
     private String quantity;
     Library library1;
     private ArrayList <Library> libraryItemsCopy;
-    private ArrayList <BorrowedItems> borrowInfoList = new ArrayList<>();
+    private ArrayList <BorrowedItems> borrowList = new ArrayList<>();
 
     public BorrowedItems(String username, String itemId, String quantity){
     this.username = username;
@@ -30,18 +30,34 @@ class BorrowedItems{
 
     
     public void Borrowitems(String Custname, int itemId, int itemsborrowed) { //
-    
-    boolean itemFound = false;
 
-    itemFound = true;
+    BorrowedItems newbI = new BorrowedItems(Custname, Integer.toString(itemId), Integer.toString(itemsborrowed));
+    borrowList.add(newbI);
+    System.out.println("THIS IS THE SIZE OF BORROWLIST IN BORORWEITEMS METHOD" + borrowList.size());
+   
+    borrowListTOfile();
 
-    for (Library lib : libraryItemsCopy) {
-        if (lib.getItemId() == itemId){
+}
 
+public void borrowListTOfile() { //test
+    try (FileWriter writer = new FileWriter("borrowers.txt")) {
+        for (BorrowedItems borrowInfo : borrowList) {
+            System.out.println("IM WRITING YOU RN TO THE FILE: "); //THIS IS JUST A VISUAL NA GUMAGANA TO
+            System.out.println("CUSTOMER USERNAME: " + borrowInfo.username);
+            System.out.println("ITEM ID: " + borrowInfo.itemId); 
+            writer.write(borrowInfo.username + ", " + borrowInfo.itemId + ", " + borrowInfo.quantity + "\n");
         }
-        
+        writer.close();
+        System.out.println("Successfully wrote borrowers to the file.");
+    } catch (IOException e) {
+        System.out.println("An error occurred while saving items to the file.");
+        e.printStackTrace();
     }
 }
+}
+
+public void displayBorrowers(){
+
 }
 
     // for (int k = i; k < count; k++) {
@@ -85,3 +101,4 @@ class BorrowedItems{
     // }
 
     // }
+
