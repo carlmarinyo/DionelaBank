@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 //GOALS
@@ -11,6 +13,7 @@ import java.util.Scanner;
 //REGISTER ACC
 //FILE TO LIST = POPULATE / LOAD
 //LIST TO FILE = WRITE / SAVE
+//METHOD FOR DUPLICATE USERNAMES// BAWAL DUPLICATE
 
 public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
     private String name;
@@ -31,10 +34,18 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
     //  this.borrowedItem = borrowedItem;
         
     }
+    public accounts(boolean e){
+        this.username = "";
+        fileTolistAcc();
+        //or acc count static
+    }
+
     public accounts(){
         this.username = "";
         //or acc count static
     }
+
+     
 
     public void fileTolistAcc(){ //FOR POPULATING THE ARRAYLIST AT THE START OR WHENEVER NECESSARY
         try{
@@ -58,6 +69,13 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
             }
     }//end bracket ng fileTOlistAcc
 
+    public ArrayList<accounts> getAccDataList() { //THIS JUST GIVES YOU A COPY BUT WILL NOT BE ABLE TO CHANGE THE ACTUAL DATA
+        //KUMBAGA PASS BY VALUE LANG,,, NOT PASS BY REFERENCE
+        // Return an unmodifiable view to protect the original list
+        System.out.println("PASSING A COPY TO YOUR CLASS NOW!");
+        return new ArrayList<>(accountsList);
+    }
+
     public void listTofileAcc(){ //THIS IS FOR WRITING THE ARRAYLIST TO TEXT FILE //ONLY CALL WHEN NECESSARY, MIGHT REWRITE SOME SHTS
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter("accJab.txt"));
@@ -79,14 +97,14 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
 
 
     public void createAcc(){ //JUST A MENU AND INPUT PURPOSE FOR THE OBJECT
-        System.out.println("ENTER USERNAME: ");
+        System.out.print("ENTER USERNAME: ");
         //a method to check if that user already exists
         this.username = scan.nextLine(); //PWEDENG setUsername(scan.nextLine());
-        System.out.println("ENTER YOUR FULL NAME: ");
+        System.out.print("ENTER YOUR FULL NAME: ");
         this.name = scan.nextLine();
-        System.out.println("ENTER PASSWORD: ");
+        System.out.print("ENTER PASSWORD: ");
         this.password = scan.nextLine();
-        System.out.println("WHAT ACCESS [2]student or [1]admin: "); //put some sht kase pag 3 input student padin.
+        System.out.print("WHAT ACCESS [2]student or [1]admin: "); //put some sht kase pag 3 input student padin.
         this.accType = (scan.nextInt() == 1) ? "admin" : "student";
     } //end bracket ng createAcc
 
@@ -160,6 +178,7 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
 
     public void displayInfo() { //FOR SOLO DISPLAY
         System.out.println("SOLO DISPLAY (current object only//the logged in)");
+        System.out.println("Username: " + getUserID());
         System.out.println("Name: " + getName());
         System.out.println("Password: " + getpassword());
         System.out.println("Account Type: " + getAccounttype());
@@ -167,5 +186,5 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
     }//end bracket ng displayInfo
 
     //more methods here IDK PA
-    //
+    //checkArraySize(){}
 }//END BRACKET NG CLASS
