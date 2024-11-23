@@ -265,6 +265,7 @@ public class Library {
 public void borrowItem(){
     int loop;
     Scanner scan = new Scanner(System.in);
+    String username = account.getCurrentUser();
     do {
         System.out.println("--------Borrow Item--------");                                
         System.out.println("NUMBER OF TITLE: " + availableItems.size());
@@ -290,7 +291,7 @@ public void borrowItem(){
           scan.nextLine();
     
                         // SAVING THE DATA TO THE ARRAYLIST OF BORROWED ITEMS
-          borrowItemInfo.Borrowitems(customerN, itemId, quantity); // tawag si Library class Borrowitem method pra mailagay si Customer name at hiniram
+          borrowItemInfo.Borrowitems(username, itemId, quantity); // tawag si Library class Borrowitem method pra mailagay si Customer name at hiniram
           
           for (Library items : availableItems) {
             if (items.getItemId() == itemId){ //PUT A CONDITION NA KAPAG MERON PANG QUANTITY OR WALA
