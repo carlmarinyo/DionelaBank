@@ -24,6 +24,7 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
 //  private int ItemsBorrowed; wait d ko pa gets pano implement
     private ArrayList <accounts> accountsList = new ArrayList<>(); //THE ONLY USE FOR THIS IS FOR ITERATING/LOOPING THE TEXT FILE TO FIND THE CURRENT USER DATA AND SUCH
 
+    private static String currentUser;
     Scanner scan = new Scanner(System.in);
 
     public accounts(String username, String password, String accType, String name) {
@@ -44,6 +45,10 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
         this.username = "";
         //or acc count static
     }
+
+    public void setCurrentUser(String username){
+        currentUser = username;
+    ]
 
      
 
@@ -118,6 +123,9 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
                 System.out.println("USER FOUND");
                 if (accounts.password.equals(password)){ //checks if password is correct
                     System.out.println("OMG YOU LOGGED IN.");
+
+                    currentUser = username;
+                    
                     if (accounts.accType.equals("admin")) return true; //RETURNS BOOLEAN FOR MENU PURPOSES
                     else if (accounts.accType.equals("student")) return false;
                     else System.out.println("THERE ARE SOME ERROR IN YOUR ACCOUNT");
