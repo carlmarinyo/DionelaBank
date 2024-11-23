@@ -8,32 +8,37 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-class BorrowedItems{
+public class BorrowedItems{
     private String username;
-    private String itemId;
-    private String quantity;
+    private int itemId;
+    private int quantity;
+
     Library library1;
     private ArrayList <Library> libraryItemsCopy;
     private ArrayList <BorrowedItems> borrowList = new ArrayList<>();
 
-    public BorrowedItems(String username, String itemId, String quantity){
+    public BorrowedItems(String username, int itemId, int quantity){
     this.username = username;
     this.itemId = itemId;
     this.quantity = quantity;
     }
 
+    
     public BorrowedItems(Library e){
         this.library1 = e;
         this.libraryItemsCopy = e.getItemDataList();
         this.username = "";
     }
 
-    
-    public void Borrowitems(String Custname, int itemId, int itemsborrowed) { //
 
-    BorrowedItems newbI = new BorrowedItems(Custname, Integer.toString(itemId), Integer.toString(itemsborrowed));
+
+
+    
+public void Borrowitems(String Custname, int itemId, int itemsborrowed) { //
+
+    BorrowedItems newbI = new BorrowedItems(Custname, itemId, itemsborrowed);
     borrowList.add(newbI);
-    System.out.println("THIS IS THE SIZE OF BORROWLIST IN BORORWEITEMS METHOD" + borrowList.size());
+    System.out.println("THIS IS THE SIZE OF BORROWLIST IN BORORWEITEMS METHOD " + borrowList.size());
    
     borrowListTOfile();
 
@@ -54,12 +59,43 @@ public void borrowListTOfile() { //test
         e.printStackTrace();
     }
 }
+
+
+public void displayBorrowers(String name){ //hindi ituu ataa, test tuu
+    if(borrowList.size() == 0){
+        System.out.println("No borrowers yet.");
+    }
+    else{
+        for(BorrowedItems borrowInfo : borrowList){
+            if(borrowInfo.username.equals(name)){
+                System.out.println("Username: " + borrowInfo.username);
+                System.out.println("Item ID: " + borrowInfo.itemId);
+                System.out.println("Quantity: " + borrowInfo.quantity);
+            }
+        }
+    }
+
 }
 
-public void displayBorrowers(){
+
+//getters
+
+public String getUsername() {
+    return username;
+}
+
+public int getItemId() {
+    return itemId;
 
 }
 
+public int getQuantity() {
+    return quantity;
+
+
+}
+
+}
     // for (int k = i; k < count; k++) {
     // if (availablebooks[k].getItemId() == itemId) { //kunin si itemID from libraryItem array, tas compare dun sa ininput
     // itemFound = true;

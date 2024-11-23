@@ -9,7 +9,8 @@ public class Main{
         int choice;
         Scanner scan = new Scanner(System.in);
         accounts acc = new accounts(true);
-        BorrowedItems userBi = new BorrowedItems();
+        //BorrowedItems userBi = new BorrowedItems();
+        
         Library Library1 = new Library(acc); //you passed the current object reference to the library class
 
         //acc.fileTolistAcc(); //FOR POPULATING ARRAYLIST BEFORE STARTING PROGRAM
@@ -78,7 +79,7 @@ public class Main{
                         break;
 
                         case 4: //View borrowed
-                        //Library1.DisplayBorrowedItems(); //zai babaguhin dito is naka display lang yung binorrow nung user mismo
+                        Library1.DisplayBorrowedItems(username); //zai babaguhin dito is naka display lang yung binorrow nung user mismo
                                                           //di pwede yung kita pati binorrow nugn iba
                         break;
 
