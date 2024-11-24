@@ -264,79 +264,167 @@ public class Library {
         System.out.println("Quantity: " + getQuantity());
       }
 
+      BorrowedItems borrowItemInfo = null; //pra di magnull pointer exception
 
-public void borrowItem(){
-    int loop;
-    Scanner scan = new Scanner(System.in);
-    BorrowedItems borrowItemInfo = null; //pra di magnull pointer exception
-
-    do {
-        System.out.println("--------Borrow Item--------");                                
-        System.out.println("NUMBER OF TITLE: " + availableItems.size());
-        if (availableItems.size() == 0) {
-           System.out.println("Inventory is currently empty...");
-         break;//checheck niya kung may laman naba, pag wala mag iistop di na tutuloy sa baba
-                             }
-        else { 
-             System.out.println("LIST OF BOOKS: ");
-            for (Library items : availableItems) {
-                 items.displayInfo(); //display muna mga items sa library
-             }                 
-         }  
-           System.out.print("Enter Customer Name: "); //HAVE TO CHECK FIRST IF CUSTOMER EXISTS WALA PA
-           String customerN = scan.nextLine(); //kunin si Customer name
+      public void borrowItem(){
+          int loop;
+          Scanner scan = new Scanner(System.in);
+          
+      
+          do {
+              System.out.println("--------Borrow Item--------");                                
+              System.out.println("NUMBER OF TITLE: " + availableItems.size());
+              if (availableItems.size() == 0) {
+                 System.out.println("Inventory is currently empty...");
+               break;//checheck niya kung may laman naba, pag wala mag iistop di na tutuloy sa baba
+                                   }
+              else { 
+                   System.out.println("LIST OF BOOKS: ");
+                  for (Library items : availableItems) {
+                       items.displayInfo(); //display muna mga items sa library
+                   }                 
+               }  
+                 System.out.print("Enter Customer Name: "); //HAVE TO CHECK FIRST IF CUSTOMER EXISTS WALA PA
+                 String customerN = scan.nextLine(); //kunin si Customer name
+                              
+                
+                 System.out.print("Enter the ItemID of the item you want to borrow: ");
+                 int itemId = scan.nextInt(); //kunin si item na gusto i borrow ni Customerrr
+                 
+               System.out.print("Enter the quantity of the item you want to borrow: ");
+                 int quantity = scan.nextInt(); //kunin si quantity ng item na gusto iborrow ni Costomer
+                    scan.nextLine();
+      
+      
+                          // SAVING THE DATA TO THE ARRAYLIST OF BORROWED ITEMS
+                          borrowItemInfo = new BorrowedItems(customerN, itemId, quantity); // tawag si borroweditem class Borrowitem, pra mailagay si Customer name at hiniram, nag popointer null exception pagnawala tu
                         
-           System.out.print("Enter the ItemID of the item you want to borrow: ");
-           int itemId = scan.nextInt(); //kunin si item na gusto i borrow ni Customerrr
-           
-         System.out.print("Enter the quantity of the item you want to borrow: ");
-           int quantity = scan.nextInt(); //kunin si quantity ng item na gusto iborrow ni Costomer
-              scan.nextLine();
+                          borrowItemInfo.Borrowitems(customerN, itemId, quantity);  //method sa borroweditems, di ko mafigure out sa file handling ksi eh
+                          
+                          borrowInfoListCopy.add(borrowItemInfo); //add si borrowItemInfo sa arraylist ng borrowed items na borrowinfolistcopy
+      
+                          // borrowItemInfo.borrowListTOfile(); //save sa file yung borrowed items
+                          // borrowItemInfo.fileTolistBorrow(); //read yung file ng borrowed items
+      
+      
+                for (Library items : availableItems) {
+                  if (items.getItemId() == itemId){ //PUT A CONDITION NA KAPAG MERON PANG QUANTITY OR WALA
+                      System.out.println("CURRENT ITEM QUANTITY: " + items.getQuantity());
+                      items.quantity = (items.quantity - quantity);
+                      System.out.println("ITEM MINUS QUANTITY SUCCESS LOOK: " + items.getQuantity());
+                      //after minus in quantity we want to save changed to this. so how
+                      saveItemsToFile();
+                      System.out.println("=====SUCCESS UPDATED QUANTITY ITEM======");
+                      break; 
+                  }
+              }  
+      
+                System.out.println("Do you want to borrow again? [1] - Yes / [2] - No");
+                loop = scan.nextInt();
+                scan.nextLine();
+                scan.nextLine();
+          
+                      } 
+             while(loop != 2);
+      }
+      
+      
+      // file handlingg pra sa borrowed items 
+    //   public void borrowListTOfile() { //test
+    //       try (FileWriter writer = new FileWriter("borrowers.txt", true)) { // append mode daw
+              
+    //               System.out.println("IM WRITING YOU RN TO THE FILE: "); //THIS IS JUST A VISUAL NA GUMAGANA TO
+    //               BorrowedItems lastBorrowedItem = borrowInfoListCopy.get(borrowInfoListCopy.size() - 1); //kunin si last item sa arraylist tas add sa file yung bagooo
+    //                 System.out.println("Writing new borrowing info to the file:");
+    //                 System.out.println("CUSTOMER USERNAME: " + lastBorrowedItem.getUsername());
+    //                 System.out.println("ITEM ID: " + lastBorrowedItem.getItemId());
+    //                 System.out.println("QUANTITY: " + lastBorrowedItem.getQuantity());
 
+    //               writer.write(lastBorrowedItem.getUsername() + ", " +  lastBorrowedItem.getItemId() + ", " + lastBorrowedItem.getQuantity() + "\n");
+              
+    //           writer.close();
+    //           System.out.println("Successfully wrote borrowers to the file.");
+    //       } catch (IOException e) {
+    //           System.out.println("An error occurred while saving items to the file.");
+    //           e.printStackTrace();
+    //       }
+    //   }
+      
+    //   public void fileTolistBorrow() { //gaya ng sa Library sa additemss
+    //       borrowInfoListCopy.clear();
+    //       try (BufferedReader reader = new BufferedReader(new FileReader("borrowers.txt"))) {
+    //               System.out.println("I AM READING YOUR TEXT. PREPARING TO POPULATE ITEMS");
+    //           String line;
+    //           while ((line = reader.readLine()) != null) {
+    //               String[] data = line.split(", ");
+      
+    //               String username = data[0];
+    //               int itemId = Integer.parseInt(data[1]);
+    //               int quantity = Integer.parseInt(data[2]);
+      
+    //               BorrowedItems borrowInfo = new BorrowedItems(username, itemId, quantity);
+    //               borrowInfoListCopy.add(borrowInfo);
+    //           }
+    //           System.out.println("Successfully read borrowers from the file.");
+    //       } catch (IOException e) {
+    //           System.out.println("An error occurred while reading borrowers from the file.");
+    //           e.printStackTrace();
+    //       }
+    //   }
 
-                        // SAVING THE DATA TO THE ARRAYLIST OF BORROWED ITEMS
-                    borrowItemInfo = new BorrowedItems(customerN, itemId, quantity); // tawag si borroweditem class Borrowitem, pra mailagay si Customer name at hiniram, nag popointer null exception pagnawala tu
-                    borrowItemInfo.Borrowitems(customerN, itemId, itemId);  //method sa borroweditems, di ko mafigure out sa file handling ksi eh
-                    borrowInfoListCopy.add(borrowItemInfo); //add si borrowItemInfo sa arraylist ng borrowed items na borrowinfolistcopy
-
-          for (Library items : availableItems) {
-            if (items.getItemId() == itemId){ //PUT A CONDITION NA KAPAG MERON PANG QUANTITY OR WALA
-                System.out.println("CURRENT ITEM QUANTITY: " + items.getQuantity());
-                items.quantity = (items.quantity - quantity);
-                System.out.println("ITEM MINUS QUANTITY SUCCESS LOOK: " + items.getQuantity());
-                //after minus in quantity we want to save changed to this. so how
-                saveItemsToFile();
-                System.out.println("=====SUCCESS UPDATED QUANTITY ITEM======");
-                break; 
-            }
-        }  
-
-          System.out.println("Do you want to borrow again? [1] - Yes / [2] - No");
-          loop = scan.nextInt();
-          scan.nextLine();
-          scan.nextLine();
+    //   //testing ng updating
+    //   public void updateBorrowersFile(int itemId, int returnedQuantity) {
+    //     ArrayList<String> updatedBorrowers = new ArrayList<>();
+    //     try (BufferedReader reader = new BufferedReader(new FileReader("borrowers.txt"))) {
+    //         String line;
+    //         while ((line = reader.readLine()) != null) {
+    //             String[] parts = line.split(", ");
+    //             String username = parts[0];
+    //             int borrowedItemId = Integer.parseInt(parts[1]);
+    //             int borrowedQuantity = Integer.parseInt(parts[2]);
     
-                } 
-       while(loop != 2);
-}
-
-//
-public void DisplayBorrowedItems(String name) {
-    if(borrowInfoListCopy.size() == 0){
-        System.out.println("No Item was borrowed yet.");
-    }
-    else{
-        for(BorrowedItems borrowInfo : borrowInfoListCopy){
-            if(borrowInfo.getUsername().equals(name)){
-                System.out.println("Username: " + borrowInfo.getUsername());
-                System.out.println("Item ID: " + borrowInfo.getItemId());
-                System.out.println("Quantity: " + borrowInfo.getQuantity());
-            }
-        }
-    }
-
-}
-
+    //             if (borrowedItemId == itemId) {
+    //                 // Reduce the borrowed quantity
+    //                 borrowedQuantity -= returnedQuantity;
+    //                 if (borrowedQuantity > 0) {
+    //                     updatedBorrowers.add(username + ", " + borrowedItemId + ", " + borrowedQuantity);
+    //                 }
+    //                 // If borrowedQuantity <= 0, skip this record (it's fully returned)
+    //             } else {
+    //                 updatedBorrowers.add(line);
+    //             }
+    //         }
+    
+    //         // Rewrite the file with updated data
+    //         try (FileWriter writer = new FileWriter("borrowers.txt")) {
+    //             for (String record : updatedBorrowers) {
+    //                 writer.write(record + "\n");
+    //             }
+    //         }
+    //         System.out.println("Updated borrowers file successfully.");
+    //     } catch (IOException e) {
+    //         System.out.println("An error occurred while updating borrowers file: " + e.getMessage());
+    //     }
+    // }
+    
+      
+    //   // test
+      public void DisplayBorrowedItems(String name) {    
+      
+          if(borrowInfoListCopy.size() == 0){
+              System.out.println("No borrowers yet.");
+          }
+          else{
+              for(BorrowedItems borrowInfo : borrowInfoListCopy){
+                  if(borrowInfo.getUsername().equals(name)){
+                      System.out.println("Username: " + borrowInfo.getUsername());
+                      System.out.println("Item ID: " + borrowInfo.getItemId());
+                      System.out.println("Quantity: " + borrowInfo.getQuantity());
+                  }
+              }
+          }
+      
+      }
 
 
 
@@ -427,6 +515,7 @@ public void DisplayBorrowedItems(String name) {
                     System.out.println("New quantity: " + items.getQuantity()); //pang check lang
 
                     saveItemsToFile();
+
                     System.out.println("BOOM FUCKING SUCCESS");
                     break;
                 }
@@ -474,3 +563,8 @@ public void DisplayBorrowedItems(String name) {
     }
 
 }
+
+
+
+
+

@@ -69,10 +69,10 @@ public class Main{
         
                         break;
 
-                        // case 2: //Return Item
-                        // Library1.returnBook();   //kirk babaguhin to, pag nag login yung user rereturn niya lang yung mga binorrow niya 
+                        case 2: //Return Item
+                        Library1.returnItem();   //kirk babaguhin to, pag nag login yung user rereturn niya lang yung mga binorrow niya 
                         //                           //bali di na mag tatanong ng userid
-                        // break;
+                        break;
 
                         case 3: //View Available Items
                         Library1.displayInventory();

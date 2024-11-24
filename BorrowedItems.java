@@ -33,23 +33,27 @@ public class BorrowedItems{
 
 
 
-    
+
 public void Borrowitems(String Custname, int itemId, int itemsborrowed) { //
 
     BorrowedItems newbI = new BorrowedItems(Custname, itemId, itemsborrowed);
     borrowList.add(newbI);
-    System.out.println("THIS IS THE SIZE OF BORROWLIST IN BORORWEITEMS METHOD " + borrowList.size());
-   
+    System.out.println("THIS IS THE SIZE OF BORROWLIST IN BORORWEITEMS METHOD " + borrowList.size()); // check if namamaintain yung size ng borrowlist kht reset
+
     borrowListTOfile();
+    fileTolistBorrow();//
+   
 
 }
 
 public void borrowListTOfile() { //test
-    try (FileWriter writer = new FileWriter("borrowers.txt")) {
+    try (FileWriter writer = new FileWriter("borrowers.txt", true)) { // append mode daw
         for (BorrowedItems borrowInfo : borrowList) {
             System.out.println("IM WRITING YOU RN TO THE FILE: "); //THIS IS JUST A VISUAL NA GUMAGANA TO
             System.out.println("CUSTOMER USERNAME: " + borrowInfo.username);
             System.out.println("ITEM ID: " + borrowInfo.itemId); 
+            System.out.println("QUANTITY: " + borrowInfo.quantity);
+
             writer.write(borrowInfo.username + ", " + borrowInfo.itemId + ", " + borrowInfo.quantity + "\n");
         }
         writer.close();
@@ -60,8 +64,35 @@ public void borrowListTOfile() { //test
     }
 }
 
+// test
+public void fileTolistBorrow() { //gaya ng sa Library sa additemss 
+
+    borrowList.clear();
+    try (BufferedReader reader = new BufferedReader(new FileReader("borrowers.txt"))) {
+            System.out.println("I AM READING YOUR TEXT. PREPARING TO POPULATE ITEMS");
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] data = line.split(", ");
+
+            String username = data[0];
+            int itemId = Integer.parseInt(data[1]);
+            int quantity = Integer.parseInt(data[2]);
+
+            BorrowedItems borrowInfo = new BorrowedItems(username, itemId, quantity);
+            borrowList.add(borrowInfo);
+        }
+        System.out.println("Successfully read borrowers from the file.");
+    } catch (IOException e) {
+        System.out.println("An error occurred while reading borrowers from the file.");
+        e.printStackTrace();
+    }
+}
+
+
 
 public void displayBorrowers(String name){ //hindi ituu ataa, test tuu
+    fileTolistBorrow();
+
     if(borrowList.size() == 0){
         System.out.println("No borrowers yet.");
     }
@@ -93,6 +124,20 @@ public int getQuantity() {
     return quantity;
 
 
+}
+
+//setters
+public void setUsername(String username) {
+    this.username = username;
+
+}
+
+public void setItemId(int itemId) {
+    this.itemId = itemId;
+}
+
+public void setQuantity(int quantity) {
+    this.quantity = quantity;
 }
 
 }
