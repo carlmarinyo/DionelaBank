@@ -404,86 +404,50 @@ public void DisplayBorrowedItems(String name) {
     //     }
     // }
 
-    // RETURNING METHODSSS
-    // public void returnBook(){
-    // System.out.println("--------Return Items--------");
-    // boolean more = true; //habang true -- loop
+ //RETURNING METHODSSS
+   public void returnItem(){
+        System.out.println("--------Return Items--------");
+        boolean more = true;
 
-    // while(more) {
-    // boolean found = false;
+        while(more){
+            System.out.println("Enter the Item ID to be returned: ");
+            int itemId = input.nextInt();
+            System.out.println("How many do you want to return?: ");
+            int quantity = input.nextInt();
+            input.nextLine();
 
-    // System.out.println("Enter User ID: ");
-    // int userId = input.nextInt();
-    // input.nextLine();
+            boolean itemFound = false;
 
-    // for (int i = 0; i < studentCount; i++) { // check muna if asa sa arraylist ng
-    // Customer class yung User ID
-    // if (studentArray[i].getUserID() == userId) { // kunin si UserID sa customer
-    // class, tas compare sa input
+            for(Library items : availableItems){
+                if(items.getItemId() == itemId){
+                    itemFound = true;
 
-    // found = true;
+                    System.out.println("Item with ID " + itemId + " has been returned");
+                    items.quantity = (items.quantity + quantity);
+                    System.out.println("New quantity: " + items.getQuantity()); //pang check lang
 
-    // System.out.println("UserID found");
-    // System.out.println("Enter Item ID to be returned: ");
-    // int itemId = input.nextInt();
-    // input.nextLine();
+                    saveItemsToFile();
+                    System.out.println("BOOM FUCKING SUCCESS");
+                    break;
+                }
+            }
 
-    // boolean foundid = false;
+            if(!itemFound){
+                System.out.println("Item with ID " + itemId + " not found! bobo mo naman");
+            }
 
-    // // pang check to kung asa arraylist ng available books yung itemid na ininput
-    // ng user
-    // if(availablebooks[i].getItemId() == itemId){
-    // System.out.println("Item with ID " + itemId + " found");
-    // for (int j = 0; j < count; j++) {
-    // if (availablebooks[j].getItemId() == itemId) {
-    // foundid = true;
+            System.out.println("Gusto mo pa ba bumalik? (y/n): ");
+            char response = input.nextLine().charAt(0);
 
-    // int itemsBorrowed = studentArray[i].getBorrowedItems(); //ireturn yung
-    // quantity ng item na binorrow ni costomerr pra makuha si quantity and gamitin
-    // sa increasequantity
+            if(response == 'y' || response == 'Y'){
+                more = true;
+            }
 
-    // availablebooks[j].increaseQuantity(itemsBorrowed); //increase yung quantity
-    // ng item sa base sa getborroweditems sa customer class
-    // System.out.println("\"" + availablebooks[j].getTitle() + "\" has been
-    // returned");
-
-    // // equal sa si k sa i ksi dun nahanap yung item na irereturn, tas yun yung
-    // iremove, so need imove yung mga customer to the left, ksi mageerror sya if
-    // null
-    // for (int k = i; k < studentCount - 1; k++) { //need imove mga customers to
-    // the left, ksi if nagnull, nagerror sya cannot invoke displayInfo
-    // studentArray[k] = studentArray[k + 1]; //itu yung pagmove sa left, itu yung
-    // binorrow na items na magmomove sa last index pra yun yung null at asa huli
-    // }
-    // studentArray[--studentCount] = null; // Decrease yung count ng customer and
-    // set yung last index equal sa null
-    // break;
-    // }
-    // }
-    // }
-
-    // if (!foundid) {
-    // System.out.println("Item with ID " + itemId + " not found");
-    // }
-
-    // break;
-    // }
-    // }
-
-    // if (!found) {
-    // System.out.println("UserID not found.");
-    // }
-
-    // System.out.println("Return more? (y/n): ");
-    // char response = input.nextLine().charAt(0);
-
-    // if (response == 'y' || response == 'Y'){
-    // more = true;
-    // } else {
-    // more = false;
-    // }
-    // }
-    // }
+            else{
+                more = false;
+            }
+        }
+    }
 
     
 
