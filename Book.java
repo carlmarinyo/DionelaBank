@@ -1,4 +1,4 @@
-public class Book extends LibraryItem{
+public class Book extends Library{
 private int pages; //unique attribute ng book
 
 public Book(int itemId, String title, String creator,int quantity, int pages) {  //para mainherit parameter ng libraryitem(id,title,creator,quantity)
@@ -15,13 +15,9 @@ public int getPages() {
 public void displayInfo() {
     System.out.println("Type: Book");
     super.displayInfo(); //tinatawag yung displayInfo ng LibraryItem(para maprint yung id, title, creator, quantity)
-    System.out.println("Pages: "+pages);
+    System.out.println("Pages: "+pages+"\n");
 }
 
-@Override
-public String toFileFormat() {
-    return super.toFileFormat() + "," + this.pages;
-}
 
 }
 

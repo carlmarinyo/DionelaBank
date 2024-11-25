@@ -1,4 +1,4 @@
-public class Magazine extends LibraryItem {
+public class Magazine extends Library {
     private int issueNumber; //unique attribute ng magazine
 
 
@@ -13,10 +13,6 @@ public int getIssueNumber() {
     }
 
 
-    @Override
-    public String toFileFormat() {
-        return super.toFileFormat() + "," + this.issueNumber;
-    }
 
 
     @Override

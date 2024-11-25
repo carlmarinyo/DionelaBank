@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main{
+public class Main2{
     public static void main(String [] args){
         String username;
         String pass;
@@ -12,7 +12,10 @@ public class Main{
         //BorrowedItems userBi = new BorrowedItems();
         
         Library Library1 = new Library(acc); //you passed the current object reference to the library class
+        int choice1 = 0; //loop whole program
+        do {
 
+       
         //acc.fileTolistAcc(); //FOR POPULATING ARRAYLIST BEFORE STARTING PROGRAM
         System.out.println("\nWelcome to Dionela Library!");
         System.out.println("--------MENU---------");
@@ -23,13 +26,14 @@ public class Main{
         switch (choice) {
             case 1: //LOGIN
                 //check if there's an account already method //NOT URGENT
-
-                System.out.print("ENTER USERNAME: ");
+                
+                System.out.print("Enter username: ");
                 username = scan.nextLine();
-                System.out.print("ENTER PASS: ");
+                System.out.print("Enter password: ");
                 pass = scan.nextLine();
-                if (acc.loginAcc(username, pass)==true){ //the string is passsed as argument to the parameter of method then returns true or false
+                if (acc.loginAcc(username, pass)==1){ //the string is passsed as argument to the parameter of method then returns true or false
                     //method menu for Admin?
+                    System.out.println("Successfully logged in....\n");
                     System.out.println("\n--------Welcome Admin !--------");
                         do {
                             System.out.print("1. Add Item\n2. Remove Item\n3. Exit.\nYour choice: ");
@@ -39,10 +43,7 @@ public class Main{
                             switch (choice) { // para sa add item
                               case 1:
                               Library1.addItem();
-                              //Library1.DisplayingAccs();
-                              
-                              //Library1.displayInfo();
-                              //Library1.addItem();
+                           
                               break;
                 
                 
@@ -50,15 +51,18 @@ public class Main{
                                // para sa remove item
                                Library1.removeItem();
                                 break;
-                              
+
+                        
 
                             }//END BRACKET NG SWITCH CASE FOR ADMIN
                         } //end bracket ng DO-WHILE
                         while (choice != 3);
+                        System.out.println("Returning to main menu....");
                 } //END BRACKET NG IF
-                else {
+                else if (acc.loginAcc(username, pass)==2){
                     //method menu for student
                     do {
+                        System.out.println("Successfully logged in....\n");
                         System.out.println("\n--------Welcome Student !--------");
                     System.out.print("1. Borrow Item\n2. Return Item\n3. View Available Items\n4. View Borrowed Items\n5. Exit\nYour input: ");
                     choice = scan.nextInt();
@@ -70,8 +74,7 @@ public class Main{
                         break;
 
                         case 2: //Return Item
-                        Library1.returnItem();   //kirk babaguhin to, pag nag login yung user rereturn niya lang yung mga binorrow niya 
-                        //                           //bali di na mag tatanong ng userid
+                        Library1.returnItem();  
                         break;
 
                         case 3: //View Available Items
@@ -79,8 +82,7 @@ public class Main{
                         break;
 
                         case 4: //View borrowed
-                        Library1.DisplayBorrowedItems(username); //zai babaguhin dito is naka display lang yung binorrow nung user mismo
-                                                          //di pwede yung kita pati binorrow nugn iba
+                        Library1.DisplayBorrowedItems(username); 
                         break;
 
                         case 5:
@@ -95,25 +97,50 @@ public class Main{
                      while (choice != 5); 
                 }//END BRACKET NG ELSE
 
+                else {
+                    System.out.println("Wrong username or password.");
+                }
+
                 break;
-            case 2: //REGISTER
-                acc.createAcc(); //menu for creating acc.. THIS IS ONLY INPUTS
-                acc.addAccToList(acc); //the object is now passed here (THE OBJECT NOW CONTAINS INFO THANKS TO createAcc METHOD)
+                case 2: //REGISTER
+                System.out.print("Enter username: ");
+                //a method to check if that user already exists
+                username = scan.nextLine(); //PWEDENG setUsername(scan.nextLine());
+                if (acc.checkUser(username) == true){
+                 System.out.println("Username already exists");
+               
+                 break;
+                }
+                else {
+                System.out.print("Enter your full name: ");
+                name = scan.nextLine();
+                System.out.print("Enter password: ");
+                String password = scan.nextLine();
+                System.out.print("Access Type [1] - Admin | [2] - Student: "); //put some sht kase pag 3 input student padin.
+                int choice2 = scan.nextInt();
+                //this.accType = (scan.nextInt() == 1) ? "admin" : "student";
+                if (choice2 == 1) accType = "admin";
+                else if (choice2 == 2) accType = "student";
+                else {
+                    System.out.println("Choose from 1-2 only.");
+                    break;
+                }
+                acc.createAcc(username, password, accType, name); //menu for creating acc.. THIS IS ONLY INPUTS
+                //acc.addAccToList(acc); //the object is now passed here (THE OBJECT NOW CONTAINS INFO THANKS TO createAcc METHOD)
                 acc.listTofileAcc(); //this now updates the textfile using the current arrayList
+                System.out.println("Account successfuly created for user "+ name);
+            }
             break;
 
             case 3: //SOMEWAY TO EXIT //test area muna
-                acc.viewAccArrayList(); //test
+            System.out.println("Thank you for using Dionela Library!");
                 break;
             default:
                 break;
         } //END BRACKET OF SWITCH
         
-       //THIS IS OUTSIDE OF SWITCH CASE JUST TO THE CURRENT OBJECT EXPERIMENT HERE
-        // System.out.println("======================MAIN=======");
-        // acc.viewAccArrayList();
-        // System.out.println("=============================MAIN==========");
-        // acc.displayInfo();
-        // System.out.println("=============================MAIN==========");
+    }
+    while (choice1 != 3);
+
     }
 }

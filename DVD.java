@@ -1,4 +1,4 @@
-public class DVD extends LibraryItem{
+public class DVD extends Library{
     private int hours; //unique attribute ng dvd
     
     public DVD(int itemId, String title, String author,int quantity, int hours) {
@@ -10,17 +10,13 @@ public int getHours() {
     return hours;
 }
 
-@Override
-public String toFileFormat() {
-    return super.toFileFormat() + "," + this.hours;
-}
 
 
     @Override
     public void displayInfo() {
         System.out.println("Type: DVD");
         super.displayInfo();  //tinatawag yung displayInfo ng LibraryItem(para maprint yung id, title, creator, quantity)
-        System.out.println("Hours: "+hours);
+        System.out.println("Hours: "+hours+"\n");
     }
     
     

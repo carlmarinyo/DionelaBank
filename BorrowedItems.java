@@ -38,7 +38,7 @@ public void Borrowitems(String Custname, int itemId, int itemsborrowed) { //
 
     BorrowedItems newbI = new BorrowedItems(Custname, itemId, itemsborrowed);
     borrowList.add(newbI);
-    System.out.println("THIS IS THE SIZE OF BORROWLIST IN BORORWEITEMS METHOD " + borrowList.size()); // check if namamaintain yung size ng borrowlist kht reset
+
 
     borrowListTOfile();
     fileTolistBorrow();//
@@ -49,10 +49,9 @@ public void Borrowitems(String Custname, int itemId, int itemsborrowed) { //
 public void borrowListTOfile() { //test
     try (FileWriter writer = new FileWriter("borrowers.txt", true)) { // append mode daw
         for (BorrowedItems borrowInfo : borrowList) {
-            System.out.println("IM WRITING YOU RN TO THE FILE: "); //THIS IS JUST A VISUAL NA GUMAGANA TO
-            System.out.println("CUSTOMER USERNAME: " + borrowInfo.username);
-            System.out.println("ITEM ID: " + borrowInfo.itemId); 
-            System.out.println("QUANTITY: " + borrowInfo.quantity);
+            System.out.println("Customer Name: " + borrowInfo.username);
+            System.out.println("Item ID: " + borrowInfo.itemId); 
+            System.out.println("Quantity: " + borrowInfo.quantity);
 
             writer.write(borrowInfo.username + ", " + borrowInfo.itemId + ", " + borrowInfo.quantity + "\n");
         }
@@ -69,7 +68,7 @@ public void fileTolistBorrow() { //gaya ng sa Library sa additemss
 
     borrowList.clear();
     try (BufferedReader reader = new BufferedReader(new FileReader("borrowers.txt"))) {
-            System.out.println("I AM READING YOUR TEXT. PREPARING TO POPULATE ITEMS");
+            
         String line;
         while ((line = reader.readLine()) != null) {
             String[] data = line.split(", ");
@@ -141,44 +140,4 @@ public void setQuantity(int quantity) {
 }
 
 }
-    // for (int k = i; k < count; k++) {
-    // if (availablebooks[k].getItemId() == itemId) { //kunin si itemID from libraryItem array, tas compare dun sa ininput
-    // itemFound = true;
-
-    // int availableQuantity = availablebooks[k].getQuantity(); //kunin yung
-    // quantity ng item sa library
-
-    // if (availableQuantity >= itemsborrowed) {//kung may laman pa yung item sa
-    // library
-    // availablebooks[k].setQuantity(availableQuantity - itemsborrowed); //Miminuss
-    // yung quantity ng item sa library
-    // //studentArray[studnetCount++] = new accounts(UserID++, Custname,
-    // itemsborrowed, availablebooks[i]); // add customer name, yung item na kinuha
-    // sa library, at increment UserID nya sa arraylist ng Customer class. increment
-    // din ng customerCount
-    // System.out.println("Item is borrowed."); }
-
-    // else if (availableQuantity > 0) { // if wala ng stock yung item sa library
-    // System.out.println("Item " + availablebooks[k].getTitle() + " is out of
-    // stock.");
-    // System.out.println("Only " + availableQuantity + " item(s) available.");
-
-    // } else { // if ubos item sa library
-    // System.out.println("Item " + availablebooks[k].getTitle() + " is out of
-    // stock.");
-
-    // }
-    // return;
-    // }
-
-    // }
-
-    // break;
-    // }
-    // }
-
-    // if (!itemFound) {
-    // System.out.println("Item not found.");
-    // }
-
-    // }
+  

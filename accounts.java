@@ -48,14 +48,14 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
 
     public void setCurrentUser(String username){
         currentUser = username;
-    ]
+    }
 
      
 
     public void fileTolistAcc(){ //FOR POPULATING THE ARRAYLIST AT THE START OR WHENEVER NECESSARY
         try{
             BufferedReader reader = new BufferedReader(new FileReader("accJab.txt"));
-            System.out.println("I AM READING YOUR TEXT. PREPARING TO POPULATE");
+        
 
             String line;
             while ((line = reader.readLine()) != null){ //READS EACH TO STORE IT IN VARIABLE LINE THEN DO THE BLOCK OF CODE THEN NEXT LINE TO STORE IN VARIABLE LINE
@@ -86,13 +86,12 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
             BufferedWriter writer = new BufferedWriter(new FileWriter("accJab.txt"));
 
             for (accounts accounts : accountsList){ //ETO UNG LOOP
-                System.out.println("IM WRITING YOU RN TO THE FILE: "); //THIS IS JUST A VISUAL NA GUMAGANA TO
-                System.out.println("USER: " + accounts.username); //THIS IS JUST A VISUAL NA GUMAGANA TO
+             
                 //UNG account[number/index] eto ung parts ng bawat line like account[0] is ung username pag account[1] un ung password
                 writer.write(accounts.username + ", " + accounts.password + ", " + accounts.accType + ", " + accounts.name + "\n");
                 //THE FORMAT WOULD LOOK LIKE
                 //luthredean, luthpass, admin, Luther Dean
-                System.out.println("ACCOUNT SUCCESS CREATED WALA PA LOOP, AND PACHECK IF NASA FILE UNG ACCOUNT");
+               
              }
              writer.close();
         }
@@ -102,43 +101,57 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
     } //end bracket ng listTOfileAcc
 
 
-    public void createAcc(){ //JUST A MENU AND INPUT PURPOSE FOR THE OBJECT
-        System.out.print("ENTER USERNAME: ");
-        //a method to check if that user already exists
-        this.username = scan.nextLine(); //PWEDENG setUsername(scan.nextLine());
-        System.out.print("ENTER YOUR FULL NAME: ");
-        this.name = scan.nextLine();
-        System.out.print("ENTER PASSWORD: ");
-        this.password = scan.nextLine();
-        System.out.print("WHAT ACCESS [2]student or [1]admin: "); //put some sht kase pag 3 input student padin.
-        this.accType = (scan.nextInt() == 1) ? "admin" : "student";
-    } //end bracket ng createAcc
+    public boolean checkUser(String username){
+        for (accounts accounts : accountsList){ //ETO UNG LOOP
+            //UNG account[number/index] eto ung parts ng bawat line like account[0] is ung username pag account[1] un ung password
+        
+             if (accounts.username.equals(username)){ //checks if the current accounts.username is equal sa ininput ng user for login
+                 return true;
+             }
+             else {
+                 
+                 return false;
+             }
+         }
+         return false;
+    }
 
-    public boolean loginAcc(String username, String password){ //
+
+    public void createAcc(String username, String pass, String accType, String name){ //JUST A MENU AND INPUT PURPOSE FOR THE OBJECT
+        this.username = username; //for initializing for the current USER purpose this is their object kase
+        this.password = pass;
+        this.accType = accType;
+        this.name = name;
+ 
+        accounts newAcc = new accounts(username, pass, accType, name);
+        addAccToList(newAcc);
+     }
+
+
+
+
+    public int loginAcc(String username, String password){ //
         outer:                      //or Object nasa parameter?
         for (accounts accounts : accountsList){ //ETO UNG LOOP
            //UNG account[number/index] eto ung parts ng bawat line like account[0] is ung username pag account[1] un ung password
 
             if (accounts.username.equals(username)){ //checks if the current accounts.username is equal sa ininput ng user for login
-                System.out.println("USER FOUND");
+               
                 if (accounts.password.equals(password)){ //checks if password is correct
-                    System.out.println("OMG YOU LOGGED IN.");
 
                     currentUser = username;
                     
-                    if (accounts.accType.equals("admin")) return true; //RETURNS BOOLEAN FOR MENU PURPOSES
-                    else if (accounts.accType.equals("student")) return false;
-                    else System.out.println("THERE ARE SOME ERROR IN YOUR ACCOUNT");
+                    if (accounts.accType.equals("admin")) return 1; //RETURNS BOOLEAN FOR MENU PURPOSES
+                    else if (accounts.accType.equals("student")) return 2;
+                    
                     break;
                 }
-                else System.out.println("WRONG PO YAN PASSWORD BOBO");
-                break outer;
+               
+         
             }
-            else {
-                System.out.println("LOADING..");
-            }
+         
         }
-        return false;
+        return 3;
     } //end bracket ng loginAcc
 
     
@@ -147,26 +160,10 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
         accountsList.add(e);
         
         //ETONG LOOP NA TO IS FOR TESTING LANG IF NASA ARRAYLIST NABA TALAGA UNG INADD NA OBJECT
-        for (accounts accounts : accountsList) {
-            System.out.println("==========FOR TESTTTINGGGGG=========UP LOOB NG ADD ACC TO LIST METHOD");
-            System.out.println("USERNAME: " + accounts.username);
-            System.out.println("USERPASS: " + accounts.password);
-            System.out.println("FULL NAME: " + accounts.name);
-            System.out.println("ACCESS TYPE: " + accounts.accType);
-            System.out.println("==========FOR TESTTTINGGGGG=========DOWN LOOB NG ADD ACC TO LIST METHOD");
-        }
+       
     } //END BRACKET NG addAccTOlist
 
-    public void viewAccArrayList(){ //VIEWING ALL OBJECTS SA ARRAYLIST
-        for (accounts accounts : accountsList) {
-            System.out.println("==========FOR TESTTTINGGGGG=========UP LOOB NG VIEW ACC ARRAYLIST");
-            System.out.println("USERNAME: " + accounts.username);
-            System.out.println("USERPASS: " + accounts.password);
-            System.out.println("FULL NAME: " + accounts.name);
-            System.out.println("ACCESS TYPE: " + accounts.accType);
-            System.out.println("==========FOR TESTTTINGGGGG=========DOWN LOOB NG VIEW ACC ARRAYLIST");
-        }
-    }
+
 
 
     public String getAccounttype() {
