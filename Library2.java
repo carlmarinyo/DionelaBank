@@ -62,10 +62,12 @@ public class Library {
         return ++itemId;
     }
 
-    public void removeItem(){
+   public void removeItem(){
         Scanner input = new Scanner(System.in);
 
         System.out.println("--------Remove Item--------");
+        System.out.println("Items available: ");
+        displayInventory();
         System.out.print("Enter the ID of the item to be removed: ");
         int removeId = input.nextInt();
         input.nextLine();
@@ -79,7 +81,10 @@ public class Library {
                     itemFound = true;
     
                     availableItems.remove(i);
+                    saveItemsToFile();
                     System.out.println("Item " + removeId + " has been removed");
+                    System.out.println("New list of items: ");
+                    displayInventory();
                     break;
                 } 
             }
@@ -266,67 +271,63 @@ public class Library {
 
       BorrowedItems borrowItemInfo = null; //pra di magnull pointer exception
 
-      public void borrowItem(){
-          int loop;
-          Scanner scan = new Scanner(System.in);
-          
-      
-          do {
-              System.out.println("--------Borrow Item--------");                                
-              System.out.println("NUMBER OF TITLE: " + availableItems.size());
-              if (availableItems.size() == 0) {
-                 System.out.println("Inventory is currently empty...");
-               break;//checheck niya kung may laman naba, pag wala mag iistop di na tutuloy sa baba
-                                   }
-              else { 
-                   System.out.println("LIST OF BOOKS: ");
-                  for (Library items : availableItems) {
-                       items.displayInfo(); //display muna mga items sa library
-                   }                 
-               }  
-                 System.out.print("Enter Customer Name: "); //HAVE TO CHECK FIRST IF CUSTOMER EXISTS WALA PA
-                 String customerN = scan.nextLine(); //kunin si Customer name
-                              
-                
-                 System.out.print("Enter the ItemID of the item you want to borrow: ");
-                 int itemId = scan.nextInt(); //kunin si item na gusto i borrow ni Customerrr
-                 
-               System.out.print("Enter the quantity of the item you want to borrow: ");
-                 int quantity = scan.nextInt(); //kunin si quantity ng item na gusto iborrow ni Costomer
-                    scan.nextLine();
-      
-      
-                          // SAVING THE DATA TO THE ARRAYLIST OF BORROWED ITEMS
-                          borrowItemInfo = new BorrowedItems(customerN, itemId, quantity); // tawag si borroweditem class Borrowitem, pra mailagay si Customer name at hiniram, nag popointer null exception pagnawala tu
+public void borrowItem(){
+    int loop;
+    Scanner scan = new Scanner(System.in);
+    BorrowedItems borrowItemInfo = null; //pra di magnull pointer exception
+
+    do {
+        System.out.println("--------Borrow Item--------");                                
+        System.out.println("NUMBER OF TITLE: " + availableItems.size());
+        if (availableItems.size() == 0) {
+           System.out.println("Inventory is currently empty...");
+         break;//checheck niya kung may laman naba, pag wala mag iistop di na tutuloy sa baba
+                             }
+        else { 
+             System.out.println("LIST OF BOOKS: ");
+            for (Library items : availableItems) {
+                 items.displayInfo(); //display muna mga items sa library
+             }                 
+         }  
+           System.out.print("Enter Customer Name: "); //HAVE TO CHECK FIRST IF CUSTOMER EXISTS WALA PA
+           String customerN = scan.nextLine(); //kunin si Customer name
                         
-                          borrowItemInfo.Borrowitems(customerN, itemId, quantity);  //method sa borroweditems, di ko mafigure out sa file handling ksi eh
-                          
-                          borrowInfoListCopy.add(borrowItemInfo); //add si borrowItemInfo sa arraylist ng borrowed items na borrowinfolistcopy
-      
-                          // borrowItemInfo.borrowListTOfile(); //save sa file yung borrowed items
-                          // borrowItemInfo.fileTolistBorrow(); //read yung file ng borrowed items
-      
-      
-                for (Library items : availableItems) {
-                  if (items.getItemId() == itemId){ //PUT A CONDITION NA KAPAG MERON PANG QUANTITY OR WALA
-                      System.out.println("CURRENT ITEM QUANTITY: " + items.getQuantity());
-                      items.quantity = (items.quantity - quantity);
-                      System.out.println("ITEM MINUS QUANTITY SUCCESS LOOK: " + items.getQuantity());
-                      //after minus in quantity we want to save changed to this. so how
-                      saveItemsToFile();
-                      System.out.println("=====SUCCESS UPDATED QUANTITY ITEM======");
-                      break; 
-                  }
-              }  
-      
-                System.out.println("Do you want to borrow again? [1] - Yes / [2] - No");
-                loop = scan.nextInt();
-                scan.nextLine();
-                scan.nextLine();
-          
-                      } 
-             while(loop != 2);
-      }
+           System.out.print("Enter the ItemID of the item you want to borrow: ");
+           int itemId = scan.nextInt(); //kunin si item na gusto i borrow ni Customerrr
+           
+         System.out.print("Enter the quantity of the item you want to borrow: ");
+           int quantity = scan.nextInt(); //kunin si quantity ng item na gusto iborrow ni Costomer
+              scan.nextLine();
+
+
+                        // SAVING THE DATA TO THE ARRAYLIST OF BORROWED ITEMS
+                    borrowItemInfo = new BorrowedItems(customerN, itemId, quantity); // tawag si borroweditem class Borrowitem, pra mailagay si Customer name at hiniram, nag popointer null exception pagnawala tu
+                    borrowItemInfo.Borrowitems(customerN, itemId, quantity);  //method sa borroweditems, di ko mafigure out sa file handling ksi eh
+                    borrowInfoListCopy.add(borrowItemInfo); //add si borrowItemInfo sa arraylist ng borrowed items na borrowinfolistcopy
+
+          for (Library items : availableItems) {
+            if (items.getItemId() == itemId){ //PUT A CONDITION NA KAPAG MERON PANG QUANTITY OR WALA
+                System.out.println("CURRENT ITEM QUANTITY: " + items.getQuantity());
+                items.quantity = (items.quantity - quantity);
+
+                borrowItemInfo = new BorrowedItems(customerN, itemId, quantity);
+                borrowItemInfo.Borrowitems(customerN, itemId, quantity);
+                System.out.println("ITEM MINUS QUANTITY SUCCESS LOOK: " + items.getQuantity());
+                //after minus in quantity we want to save changed to this. so how
+                saveItemsToFile();
+                System.out.println("=====SUCCESS UPDATED QUANTITY ITEM======");
+                break; 
+            }
+        }  
+
+          System.out.println("Do you want to borrow again? [1] - Yes / [2] - No");
+          loop = scan.nextInt();
+          scan.nextLine();
+          scan.nextLine();
+    
+                } 
+       while(loop != 2);
+}
       
       
       // file handlingg pra sa borrowed items 
@@ -498,34 +499,45 @@ public class Library {
         boolean more = true;
 
         while(more){
-            System.out.println("Enter the Item ID to be returned: ");
+            System.out.print("Enter the Item ID to be returned: ");
             int itemId = input.nextInt();
-            System.out.println("How many do you want to return?: ");
+            System.out.print("How many do you want to return?: ");
             int quantity = input.nextInt();
             input.nextLine();
 
             boolean itemFound = false;
 
-            for(Library items : availableItems){
-                if(items.getItemId() == itemId){
+            for(BorrowedItems borrowInfo : borrowInfoListCopy){
+                if(borrowInfo.getItemId() == itemId){
                     itemFound = true;
 
-                    System.out.println("Item with ID " + itemId + " has been returned");
-                    items.quantity = (items.quantity + quantity);
-                    System.out.println("New quantity: " + items.getQuantity()); //pang check lang
+                    if(quantity > borrowInfo.getQuantity()){
+                        System.out.println("Quantity is greater than borrowed quantity!");
+                        System.out.println("You only borrowed: " + borrowInfo.getQuantity());
+                    }
 
-                    saveItemsToFile();
+                    else{ 
+                        borrowInfo.setQuantity(borrowInfo.getQuantity() - quantity);
+                        for (Library item : availableItems){
+                            if(item.getItemId() == itemId){
+                                item.quantity = (item.quantity + quantity);
+                            System.out.println("Item with ID " + itemId + " has been returned");
+                            System.out.println("New quantity: " + item.getQuantity()); //pang check lang
 
-                    System.out.println("BOOM FUCKING SUCCESS");
-                    break;
+                            saveItemsToFile();
+                            System.out.println("BOOM FUCKING SUCCESS");
+                            break;
+                            }
+                        }
+                    }
                 }
             }
 
             if(!itemFound){
-                System.out.println("Item with ID " + itemId + " not found! bobo mo naman");
+                System.out.println("Item with ID " + itemId + " not found!");
             }
 
-            System.out.println("Gusto mo pa ba bumalik? (y/n): ");
+            System.out.print("Do you still want to return more? (y/n): ");
             char response = input.nextLine().charAt(0);
 
             if(response == 'y' || response == 'Y'){
