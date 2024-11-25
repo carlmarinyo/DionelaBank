@@ -401,7 +401,7 @@ public void borrowItem(){
  
 
  //RETURNING METHODSSS
-   public void returnItem(){
+ public void returnItem(BorrowedItems borrowedItems){
         System.out.println("--------Return Items--------");
         boolean more = true;
 
@@ -436,6 +436,13 @@ public void borrowItem(){
                             break;
                             }
                         }
+
+                        if(borrowInfo.getQuantity() == 0){
+                            System.out.println("All items returned");
+                            borrowInfoListCopy.remove(borrowInfo); //mareremove sa borrowers file yung nag borrow pag nag reach ng 0 yung quantity
+                            borrowedItems.borrowListTOfile(); //pang save sa file 
+                            break;
+                        }
                     }
                 }
             }
@@ -456,7 +463,6 @@ public void borrowItem(){
             }
         }
     }
-
     
     public void clearScreen() {
         for (int i = 0; i < 50; i++) {
