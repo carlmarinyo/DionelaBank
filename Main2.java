@@ -34,8 +34,9 @@ public class Main2{
                 if (acc.loginAcc(username, pass)==1){ //the string is passsed as argument to the parameter of method then returns true or false
                     //method menu for Admin?
                     System.out.println("Successfully logged in....\n");
-                    System.out.println("\n--------Welcome Admin !--------");
+                 
                         do {
+                            System.out.println("\n--------Welcome Admin !--------");
                             System.out.print("1. Add Item\n2. Remove Item\n3. Exit.\nYour choice: ");
                             choice = scan.nextInt();
                             scan.nextLine();
@@ -60,9 +61,10 @@ public class Main2{
                         System.out.println("Returning to main menu....");
                 } //END BRACKET NG IF
                 else if (acc.loginAcc(username, pass)==2){
+                    System.out.println("Successfully logged in....\n");
                     //method menu for student
                     do {
-                        System.out.println("Successfully logged in....\n");
+                      
                         System.out.println("\n--------Welcome Student !--------");
                     System.out.print("1. Borrow Item\n2. Return Item\n3. View Available Items\n4. View Borrowed Items\n5. Exit\nYour input: ");
                     choice = scan.nextInt();
@@ -73,7 +75,7 @@ public class Main2{
         
                         break;
 
-                        case 2: //Return Item
+                        case 2: //Return Item  cinomment out muna namin kirk
                         //Library1.returnItem();  
                         break;
 
@@ -143,4 +145,4 @@ public class Main2{
     while (choice1 != 3);
 
     }
-}
+}   

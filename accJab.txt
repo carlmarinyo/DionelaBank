@@ -1,1 +1,3 @@
-STUDENT, STUDENT, student, STUDENT
+carl, carl, admin, carl
+2, 2, student, 2
+jerome, jerome, student, jerome

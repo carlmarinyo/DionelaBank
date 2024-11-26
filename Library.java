@@ -358,10 +358,10 @@ public void borrowItem(String customerN){
                     borrowItemInfo.Borrowitems(customerN, itemId, quantity);  //method sa borroweditems, di ko mafigure out sa file handling ksi eh
                     borrowInfoListCopy.add(borrowItemInfo); //add si borrowItemInfo sa arraylist ng borrowed items na borrowinfolistcopy
 
-                    System.out.println("ITEM MINUS QUANTITY SUCCESS LOOK: " + items.getQuantity());
+                
                     //after minus in quantity we want to save changed to this. so how
                     saveItemsToFile();
-                    System.out.println("=====SUCCESS UPDATED QUANTITY ITEM======");
+            
                     break; 
                 }
                 else{
@@ -480,8 +480,3 @@ public void borrowItem(String customerN){
     }
 
 }
-
-
-
-
-

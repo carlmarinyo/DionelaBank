@@ -108,10 +108,7 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
              if (accounts.username.equals(username)){ //checks if the current accounts.username is equal sa ininput ng user for login
                  return true;
              }
-             else {
-                 
-                 return false;
-             }
+           
          }
          return false;
     }
