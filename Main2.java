@@ -69,12 +69,12 @@ public class Main2{
                     scan.nextLine();
                     switch (choice) {
                         case 1: //borrow item
-                        Library1.borrowItem();
+                        Library1.borrowItem(username);
         
                         break;
 
                         case 2: //Return Item
-                        Library1.returnItem();  
+                        //Library1.returnItem();  
                         break;
 
                         case 3: //View Available Items

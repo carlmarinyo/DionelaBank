@@ -318,7 +318,7 @@ public class Library {
 
       BorrowedItems borrowItemInfo = null; //pra di magnull pointer exception
 
-public void borrowItem(){
+public void borrowItem(String customerN){
     int loop;
     Scanner scan = new Scanner(System.in);
     BorrowedItems borrowItemInfo = null; //pra di magnull pointer exception
@@ -335,45 +335,54 @@ public void borrowItem(){
             for (Library items : availableItems) {
                  items.displayInfo(); //display muna mga items sa library
              }                 
-         }  
-           System.out.print("Enter Customer Name: "); //HAVE TO CHECK FIRST IF CUSTOMER EXISTS WALA PA
-           String customerN = scan.nextLine(); //kunin si Customer name
-                        
+         }     
+             
            System.out.print("Enter the ItemID of the item you want to borrow: ");
            int itemId = scan.nextInt(); //kunin si item na gusto i borrow ni Customerrr
            
-         System.out.print("Enter the quantity of the item you want to borrow: ");
+             System.out.print("Enter the quantity of the item you want to borrow: ");
            int quantity = scan.nextInt(); //kunin si quantity ng item na gusto iborrow ni Costomer
               scan.nextLine();
 
+          for (Library items : availableItems) {
+            if (items.getItemId() == itemId){ //PUT A CONDITION NA KAPAG MERON PANG QUANTITY OR WALA
+                
+                if(items.getQuantity() >= quantity && quantity > 0){
+                
+                    System.out.println("CURRENT ITEM QUANTITY: " + items.getQuantity());
+                    items.quantity = (items.quantity - quantity);
 
-                        // SAVING THE DATA TO THE ARRAYLIST OF BORROWED ITEMS
+
+                    // SAVING THE DATA TO THE ARRAYLIST OF BORROWED ITEMS
                     borrowItemInfo = new BorrowedItems(customerN, itemId, quantity); // tawag si borroweditem class Borrowitem, pra mailagay si Customer name at hiniram, nag popointer null exception pagnawala tu
                     borrowItemInfo.Borrowitems(customerN, itemId, quantity);  //method sa borroweditems, di ko mafigure out sa file handling ksi eh
                     borrowInfoListCopy.add(borrowItemInfo); //add si borrowItemInfo sa arraylist ng borrowed items na borrowinfolistcopy
 
-          for (Library items : availableItems) {
-            if (items.getItemId() == itemId){ //PUT A CONDITION NA KAPAG MERON PANG QUANTITY OR WALA
-                System.out.println("CURRENT ITEM QUANTITY: " + items.getQuantity());
-                items.quantity = (items.quantity - quantity);
-
-                borrowItemInfo = new BorrowedItems(customerN, itemId, quantity);
-                borrowItemInfo.Borrowitems(customerN, itemId, quantity);
-                System.out.println("ITEM MINUS QUANTITY SUCCESS LOOK: " + items.getQuantity());
-                //after minus in quantity we want to save changed to this. so how
-                saveItemsToFile();
-                System.out.println("=====SUCCESS UPDATED QUANTITY ITEM======");
-                break; 
+                    System.out.println("ITEM MINUS QUANTITY SUCCESS LOOK: " + items.getQuantity());
+                    //after minus in quantity we want to save changed to this. so how
+                    saveItemsToFile();
+                    System.out.println("=====SUCCESS UPDATED QUANTITY ITEM======");
+                    break; 
+                }
+                else{
+                    System.out.println("Not enough quantity available.");
+                
+                    }
             }
-        }  
+        }
 
           System.out.print("Do you want to borrow again? [1] - Yes / [2] - No: ");
           loop = scan.nextInt();
           scan.nextLine();
     
-                } 
-       while(loop != 2);
+    } while(loop != 2);
+
 }
+       
+        
+
+
+
       
     
     //   // test
