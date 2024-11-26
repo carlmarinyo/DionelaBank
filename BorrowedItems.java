@@ -34,34 +34,42 @@ public class BorrowedItems{
 
 
 
-public void Borrowitems(String Custname, int itemId, int itemsborrowed) { //
-
-    BorrowedItems newbI = new BorrowedItems(Custname, itemId, itemsborrowed);
-    borrowList.add(newbI);
-
-
-    borrowListTOfile();
-    fileTolistBorrow();
-   
-
-}
-
-public void borrowListTOfile() { //test
-    try (FileWriter writer = new FileWriter("borrowers.txt", true)) { // append mode daw
+    public void Borrowitems(String Custname, int itemId, int itemsborrowed) {
+        // Load the current borrow list from the file
+        fileTolistBorrow();
+    
+        boolean found = false;
+    
+        //Checks if the item was already borrowed before
         for (BorrowedItems borrowInfo : borrowList) {
-            System.out.println("Customer Name: " + borrowInfo.username);
-            System.out.println("Item ID: " + borrowInfo.itemId); 
-            System.out.println("Quantity: " + borrowInfo.quantity);
-
-            writer.write(borrowInfo.username + ", " + borrowInfo.itemId + ", " + borrowInfo.quantity + "\n");
+            if (borrowInfo.username.equals(Custname) && borrowInfo.itemId == itemId) {
+                borrowInfo.quantity += itemsborrowed; // if already borrwowed, it just adds to the quantity
+                found = true;
+                break;
+            }
         }
-        writer.close();
-        System.out.println("Successfully wrote borrowers to the file.");
-    } catch (IOException e) {
-        System.out.println("An error occurred while saving items to the file.");
-        e.printStackTrace();
+    
+        
+        if (!found) { //if its not found, it will create a new entry
+            BorrowedItems newbI = new BorrowedItems(Custname, itemId, itemsborrowed);
+            borrowList.add(newbI);
+        }
+    
+        // Save the updated list back to the file
+        borrowListTOfile();
     }
-}
+
+    public void borrowListTOfile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("borrowers.txt"))) {
+            for (BorrowedItems borrowInfo : borrowList) {
+                writer.write(borrowInfo.username + ", " + borrowInfo.itemId + ", " + borrowInfo.quantity + "\n");
+            }
+         
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving borrowers to the file.");
+            e.printStackTrace();
+        }
+    }
 
 // test
 public void fileTolistBorrow() { //gaya ng sa Library sa additemss 
@@ -79,10 +87,11 @@ public void fileTolistBorrow() { //gaya ng sa Library sa additemss
 
             BorrowedItems borrowInfo = new BorrowedItems(username, itemId, quantity);
             borrowList.add(borrowInfo);
+           
         }
-        System.out.println("Successfully read borrowers from the file.");
+       
     } catch (IOException e) {
-        System.out.println("An error occurred while reading borrowers from the file.");
+        System.out.println("An error occu1rred while reading borrowers from the file.");
         e.printStackTrace();
     }
 }
@@ -91,17 +100,24 @@ public void fileTolistBorrow() { //gaya ng sa Library sa additemss
 
 public void displayBorrowers(String name){ //hindi ituu ataa, test tuu
     fileTolistBorrow();
-
+    boolean ifFound = false;
     if(borrowList.size() == 0){
         System.out.println("No borrowers yet.");
     }
     else{
+        
         for(BorrowedItems borrowInfo : borrowList){
+           
             if(borrowInfo.username.equals(name)){
-                System.out.println("Username: " + borrowInfo.username);
+                ifFound = true;
+                 System.out.println("\nUsername: " + borrowInfo.username);
                 System.out.println("Item ID: " + borrowInfo.itemId);
                 System.out.println("Quantity: " + borrowInfo.quantity);
             }
+        }
+        if (!ifFound) {
+            System.out.println("No borrwed items yet.");
+            
         }
     }
 

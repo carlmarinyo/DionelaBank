@@ -1,3 +1,0 @@
-1, Dionela, Sining, 40, book, 5
-2, Bold ni Sining, Dionela, 0, dvd, 10
-3, Dionela Sion, Sining, 0, magazine, 10
