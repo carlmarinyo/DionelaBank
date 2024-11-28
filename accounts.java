@@ -38,12 +38,11 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
     public accounts(boolean e){
         this.username = "";
         fileTolistAcc();
-        //or acc count static
     }
 
     public accounts(){
         this.username = "";
-        //or acc count static
+        fileTolistAcc(); 
     }
 
     public void setCurrentUser(String username){
@@ -73,13 +72,6 @@ public class accounts{ //THIS IS OVERALL FOR ACCOUNTS
                 System.err.println("An error occurred while reading the file: " + e.getMessage());
             }
     }//end bracket ng fileTOlistAcc
-
-    public ArrayList<accounts> getAccDataList() { //THIS JUST GIVES YOU A COPY BUT WILL NOT BE ABLE TO CHANGE THE ACTUAL DATA
-        //KUMBAGA PASS BY VALUE LANG,,, NOT PASS BY REFERENCE
-        // Return an unmodifiable view to protect the original list
-        System.out.println("PASSING A COPY TO YOUR CLASS NOW!");
-        return new ArrayList<>(accountsList);
-    }
 
     public void listTofileAcc(){ //THIS IS FOR WRITING THE ARRAYLIST TO TEXT FILE //ONLY CALL WHEN NECESSARY, MIGHT REWRITE SOME SHTS
         try{
